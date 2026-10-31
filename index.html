@@ -425,6 +425,14 @@ body.locked #bnav,body.kb #bnav{display:none!important}
   :root{--bnav-h:48px}
 }
 
+/* ===== PWA v3.1: hàng tab trên máy tính / máy tính bảng – tự xuống dòng, không bị cắt ===== */
+@media(min-width:761px){
+  nav.tabs{flex-wrap:wrap;overflow:visible;row-gap:8px;gap:6px}
+  nav.tabs .tab{padding:9px 13px}
+  nav.tabs .sep{display:none}
+  .card .sub:empty{display:none}
+}
+
 </style>
 </head>
 <body>
@@ -1001,7 +1009,7 @@ function decSave(evalId){
 /* ============ CÀI ĐẶT ============ */
 function setView(){
   const st=S.settings;
-  return `<div class="grid" style="grid-template-columns:1fr 1fr"><div class="card"><h2>${ic('sliders')} Thông tin đơn vị</h2><div class="sub">&nbsp;</div>
+  return `<div class="grid" style="grid-template-columns:1fr 1fr"><div class="card"><h2>${ic('sliders')} Thông tin đơn vị</h2><div class="sub">Tên đơn vị, giới hạn đăng ký, chu kỳ lịch và mã PIN.</div>
    <div class="fld"><label class="f">Cơ quan chủ quản</label><input class="in" id="sPar" value="${esc(st.parent)}"></div>
    <div class="fld"><label class="f">Tên trường / đơn vị</label><input class="in" id="sSch" value="${esc(st.school)}"></div>
    <div class="fld"><label class="f">Đại đội</label><input class="in" id="sUn" value="${esc(st.unit)}"></div>
