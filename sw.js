@@ -4,7 +4,7 @@
    - Ảnh/manifest: dùng bản đã lưu và cập nhật ngầm.
    - Google Fonts: lưu lại sau lần tải đầu.
    - Bản mới chỉ kích hoạt khi người dùng bấm "Cập nhật" (tránh mất thao tác đang làm). */
-const VERSION = 'tham-than-v3';
+const VERSION = 'tham-than-v4';
 const CORE_CACHE = VERSION + '-core';
 const RUNTIME_CACHE = VERSION + '-runtime';
 const CORE = [
@@ -15,7 +15,9 @@ const CORE = [
   './icons/icon-192.png',
   './icons/icon-512.png',
   './icons/apple-touch-icon.png',
-  './icons/favicon-32.png'
+  './icons/favicon-32.png',
+  './icons/topo-light.png',
+  './icons/topo-dark.png'
 ];
 const NAV_TIMEOUT = 3500;
 

@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
-<meta name="theme-color" content="#8e1220">
+<meta name="theme-color" content="#1c2416">
 <meta name="color-scheme" content="light">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
-<meta name="msapplication-TileColor" content="#8e1220">
+<meta name="msapplication-TileColor" content="#1c2416">
 <meta name="application-name" content="Đăng ký thăm thân">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -20,14 +20,14 @@
 <title>Đăng ký thăm thân</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,400..700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --red:#c8202f; --red-d:#8e1220; --red-dd:#5c0b15; --gold:#f6c026; --gold-d:#d9a100;
-  --blue:#1f9fe0; --navy:#1b2a6b;
-  --bg:#f4f6fb; --card:#ffffff; --ink:#18203a; --mut:#66708c; --line:#e3e8f2;
-  --ok:#14915a; --okbg:#e3f6ec; --warn:#c77700; --warnbg:#fff1d6; --bad:#c8202f; --badbg:#fde5e8;
-  --r:16px; --sh:0 1px 2px rgba(20,30,70,.06),0 8px 24px rgba(20,30,70,.07);
+  --red:#c8202f; --red-d:#9c1523; --red-dd:#5c0b15; --gold:#e9b824; --gold-d:#b98a0a;
+  --blue:#2a7ba6; --navy:#1c2416;
+  --bg:#dfe6cc; --card:#f7faee; --ink:#1c2416; --mut:#566148; --line:#c5cfae;
+  --ok:#1f7a3d; --okbg:#e0efd8; --warn:#9a5b00; --warnbg:#f8ebbd; --bad:#b4192a; --badbg:#f7ddd9;
+  --r:6px; --sh:3px 3px 0 rgba(43,55,32,.13);
   --ease:cubic-bezier(.22,.9,.3,1);
 }
 *{box-sizing:border-box;margin:0}
@@ -258,7 +258,6 @@ input,select,textarea{font-size:16px}
 /* Cài đặt có lưới co giãn, tránh tràn trên màn hình nhỏ */
 @media(max-width:760px){
   #main .grid[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
-  #main .row[style*="grid-template-columns:1.2fr 1fr 1fr .7fr auto"]{grid-template-columns:1fr 1fr!important}
   #main .row[style*="grid-template-columns:90px 1fr 1fr"]{grid-template-columns:1fr 1fr!important}
 }
 @media(display-mode:standalone){header.top{padding-top:env(safe-area-inset-top,0px)}}
@@ -399,8 +398,7 @@ body.locked #bnav,body.kb #bnav{display:none!important}
 
   /* biểu mẫu đăng ký */
   .chips.dates{display:grid;grid-template-columns:repeat(3,1fr)}
-  .chips.slots{display:grid;grid-template-columns:1fr 1fr}
-  .chips.dates .chip,.chips.slots .chip{text-align:center}
+  .chips.dates .chip{text-align:center}
   .btn.stick{position:sticky;bottom:calc(var(--bnav-h) + var(--safe-bottom) + 10px);z-index:5;box-shadow:0 10px 26px rgba(200,32,47,.42)}
   body.kb .btn.stick{bottom:10px}
 
@@ -433,6 +431,240 @@ body.locked #bnav,body.kb #bnav{display:none!important}
   .card .sub:empty{display:none}
 }
 
+
+/* =====================================================================
+   v4 · Giao diện "Bản đồ & cầu vai"
+   - Nền: đường đồng mức bản đồ địa hình (icons/topo-*.png)
+   - Đầu trang: nền olive quân phục + dải đỏ–vàng như cầu vai
+   - Chữ: Barlow Condensed (biển hiệu, con số) + Bricolage Grotesque (nội dung)
+   - Màu: olive làm chủ đạo, đỏ sao cho hành động chính, vàng đồng làm điểm nhấn
+   ===================================================================== */
+:root{
+  --fd:'Barlow Condensed','Arial Narrow','Roboto Condensed','Helvetica Neue',sans-serif;
+  --fb:'Bricolage Grotesque','Be Vietnam Pro',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --olive:#2b3720;--olive-d:#1c2416;--olive-m:#4d5f34;--sage:#e3e9d3;--paper:#f4f7ea;
+}
+body{font-family:var(--fb);font-optical-sizing:auto;background:var(--bg) url(icons/topo-light.png) 0 0/640px;color:var(--ink)}
+body:before,body:after{display:none}
+.view{animation:vfade .18s ease both}
+@keyframes vfade{from{opacity:0}}
+.stagger>*{animation:none}
+
+/* ---- đầu trang: cầu vai ---- */
+header.top{background:var(--olive-d) url(icons/topo-dark.png) 0 0/560px;box-shadow:none;padding-bottom:7px}
+header.top:after{height:7px;background:linear-gradient(180deg,var(--gold) 0 2px,var(--red) 2px 5px,var(--gold) 5px 7px)}
+.logo{animation:none;box-shadow:0 0 0 2px var(--gold),0 0 0 4px rgba(0,0,0,.4)}
+.htitle small{font:500 12px/1.3 var(--fb);text-transform:none;letter-spacing:.02em;color:#b9c79a}
+.htitle h1{font:700 27px/1.05 var(--fd);letter-spacing:.015em;color:#fff}
+.htitle span{font:600 13.5px var(--fb);color:var(--gold)}
+.hbtn{border-radius:4px;background:rgba(255,255,255,.06);border:1px solid rgba(233,184,36,.5);color:var(--paper);font-weight:600}
+.hbtn:hover{background:rgba(233,184,36,.2);transform:none}
+.hbtn.install{background:rgba(233,184,36,.18);border-color:var(--gold)}
+.hbtn .dot{background:var(--gold);color:var(--olive-d);border-radius:3px}
+.net{border-radius:4px}
+
+/* ---- thanh tab (máy tính) ---- */
+.tab{background:#f1f5e3;border:1px solid var(--line);border-radius:4px;font:600 19px/1 var(--fd);letter-spacing:.01em;padding:10px 15px 8px;color:#47523a}
+.tab:hover{color:var(--red-d);background:#fff;transform:none}
+.tab.on{background:var(--olive);color:var(--paper);border-color:var(--olive-d);box-shadow:inset 0 3px 0 var(--gold)}
+.tab.cmd:not(.on){border-style:dashed;border-color:#98a581}
+.sep{width:2px;background:var(--olive-m);opacity:.3}
+
+/* ---- thẻ nội dung ---- */
+.card{border-radius:6px;border:1px solid var(--line);border-top:3px solid var(--olive-m);box-shadow:3px 3px 0 rgba(43,55,32,.13)}
+.card h2{font:700 26px/1.1 var(--fd);letter-spacing:.005em;color:var(--olive-d);gap:9px;margin-bottom:5px}
+.card h2 svg.i{color:var(--red);width:22px;height:22px}
+.card .sub{color:var(--mut);font-size:14px}
+.md h3{font:700 23px/1.15 var(--fd);color:var(--olive-d)}
+.md h3 svg.i{color:var(--red)}
+h3.step{flex-wrap:wrap;font:700 20px/1.1 var(--fd);color:var(--red-d);margin:20px 0 9px;padding-bottom:5px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:8px}
+h3.step:first-of-type{margin-top:8px}
+h3.step small{font:500 13px var(--fb);color:var(--mut)}
+label.f{font-size:13.5px;font-weight:600;letter-spacing:0;text-transform:none;color:#47523a}
+.stat .ic{border-radius:4px}
+.stat b{font:700 42px/1 var(--fd);color:var(--olive-d)}
+.stat span{font-size:13.5px}
+.stat:hover{transform:none}
+.kv{border-bottom:1px dashed #b7c3a0}
+.kv b{font-weight:700}
+
+/* ---- nút: phím cơ, nhấn lún xuống ---- */
+.btn{border-radius:5px;border:1px solid #a9b595;border-bottom-width:3px;background:#eaf0d8;color:var(--ink);font-weight:600;padding:9px 16px 7px;box-shadow:none}
+.btn:hover{transform:none;box-shadow:none;background:#e0e8cb}
+.btn:active{transform:translateY(2px);border-bottom-width:1px;padding-bottom:9px}
+.btn.pri{background:var(--red);border-color:#7d0f1b;color:#fff;box-shadow:none}
+.btn.pri:hover{background:#b51c2a}
+.btn.gold{background:var(--gold);border-color:#9a7405;color:#2b2000}
+.btn.gold:hover{background:#f1c43a}
+.btn.ok{background:#1f7a3d;border-color:#124d27;color:#fff}
+.btn.bad{background:#b4192a;border-color:#6d0e19;color:#fff}
+.btn.ghost{background:transparent;border-color:#a9b595}
+.btn.ghost:hover{background:rgba(255,255,255,.55)}
+.btn.sm{padding:6px 11px 4px}
+.btn.sm:active{padding-bottom:6px}
+.btn.stick{box-shadow:0 10px 18px -10px rgba(28,36,22,.7)}
+.iconbtn{border-radius:5px;border:1px solid #a9b595;background:#f1f5e3}
+.iconbtn:hover{background:#fff;color:var(--red);transform:none}
+
+/* ---- ô nhập ---- */
+.in{border:1.5px solid #a3b08c;border-radius:4px;background:#fcfdf6}
+.in:focus{border-color:var(--olive-d);box-shadow:0 0 0 3px rgba(233,184,36,.5)}
+select.in{background-color:#fcfdf6}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--olive-d);outline-offset:2px;box-shadow:0 0 0 5px var(--gold)}
+.sw i{border-radius:5px}.sw i:before{border-radius:3px}
+
+/* ---- chip chọn ngày ---- */
+.chip{border-radius:4px;border:1.5px solid #a9b595;background:#f7faee;font-weight:600}
+.chip:hover{border-color:var(--olive-m);background:#fff;transform:none}
+.chip.on{background:var(--olive);border-color:var(--olive-d);color:var(--paper);box-shadow:inset 0 3px 0 var(--gold)}
+.chip.on small{color:#c9d6a8}
+.chip small{color:var(--mut)}
+
+/* ---- tem trạng thái ---- */
+.badge{border-radius:3px;border:1.5px solid currentColor;padding:0 8px;font:600 14.5px/1.5 var(--fd);letter-spacing:.03em}
+.b-ok{background:#e0efd8;color:#1a6a34}.b-warn{background:#f8ebbd;color:#845000}.b-bad{background:#f7ddd9;color:#a5152a}.b-gray{background:#e9eddb;color:#58634a}.b-blue{background:#d9ebf1;color:#12607f}
+.banner{border-radius:4px;border-left:5px solid;animation:none}
+.banner.ok{background:#e0efd8;color:#174f2b;border-color:#2c8a4b}
+.banner.warn{background:#f8ecc4;color:#6a4200;border-color:#d39a07}
+.banner.bad{background:#f7dfdc;color:#80111f;border-color:var(--red)}
+.banner.info{background:#dcebee;color:#0f4a63;border-color:#2a7ba6}
+.alert-item{border-radius:4px;border:1px solid #d9b4ac;border-left:5px solid var(--red);background:#fbf3ef;animation:none}
+
+/* ---- lịch ---- */
+.calhead h2{font:700 32px/1 var(--fd);color:var(--olive-d)}
+.dn{font:600 13px var(--fb);text-transform:none;letter-spacing:0;color:#47523a}
+.dn.we{color:var(--red-d)}
+.day{border-radius:4px;background:#f1f5e3;border:1px solid var(--line)}
+.day .n{font:700 24px/1 var(--fd)}
+.day.open{background:#f8eec0;border-color:#d4b53f}
+.day.open:hover{transform:translateY(-2px);box-shadow:3px 3px 0 rgba(43,55,32,.25);border-color:#9a7405}
+.day.closed.we{background:repeating-linear-gradient(135deg,#e9eedc,#e9eedc 7px,#dde4c9 7px,#dde4c9 14px);border-color:#c0cba8}
+.day.today{box-shadow:inset 0 0 0 2px var(--olive-d)}
+.day.today .n:after{background:var(--olive-d);border-radius:3px;font-family:var(--fb)}
+.day .bar{height:6px;border-radius:0;background:#e3d9a4}
+.day .bar i{border-radius:0;background:linear-gradient(90deg,#4f8a30,#e9b824,#c8202f);background-size:300% 100%}
+.day .tg{color:var(--red-d);font-weight:600}
+.day .pd{border-radius:2px}
+.legend i{border-radius:3px}
+
+/* ---- bảng ---- */
+.tw{border-radius:4px;border-color:#b7c3a0}
+table{background:#fcfdf6}
+th{background:#e4ebd0;font:600 13.5px var(--fb);text-transform:none;letter-spacing:0;color:#3b472e}
+td{border-top-color:#d5deb9}
+tbody tr:hover{background:#f3f8e6}
+
+/* ---- hộp thoại & thông báo ---- */
+.ov{background:rgba(20,28,14,.62);backdrop-filter:none;-webkit-backdrop-filter:none}
+.md{border-radius:6px;border-top:5px solid var(--red);background:var(--paper)}
+.md .foot{background:var(--paper);border-top-color:var(--line)}
+.mclose{border-radius:4px;background:#e4ebd0}
+.grab{background:#b7c3a0}
+.mitem{border-radius:5px;background:#f1f5e3;border-color:#a9b595;font-family:var(--fb)}
+.mitem svg{color:var(--red)}
+.mitem.on{border-color:var(--olive-d);background:#e4ebd0}
+.toast{border-radius:4px;background:var(--olive-d)}
+.steps li{border-radius:5px;background:#f1f5e3}
+.steps li:before{background:var(--olive);border-radius:4px}
+.vgrp label:hover{background:#eef3de}
+footer{color:#5d6850}
+
+/* ---- cổng PIN: thẻ ra vào cổng ---- */
+#gate{background:
+  repeating-conic-gradient(from 0deg at 50% 36%,rgba(233,184,36,.035) 0 3deg,transparent 3deg 12deg),
+  url(icons/topo-dark.png) 0 0/520px,
+  radial-gradient(900px 620px at 50% 32%,#3a4a2a 0,#1c2416 72%)}
+.gcard{background:var(--paper);color:var(--ink);backdrop-filter:none;-webkit-backdrop-filter:none;border:0;border-radius:6px;box-shadow:0 0 0 2px var(--gold),0 0 0 7px var(--olive-d),0 28px 70px rgba(0,0,0,.55);padding:28px 26px 24px;max-width:400px}
+.glogo{box-shadow:0 0 0 3px var(--gold),0 0 0 7px var(--olive-d);animation:pop .8s var(--ease) both}
+.gcard small{font:500 12.5px var(--fb);letter-spacing:.02em;text-transform:none;color:var(--mut)}
+.gcard h1{font:700 28px/1.05 var(--fd);color:var(--olive-d);letter-spacing:.015em;margin:5px 0 4px}
+.gcard p{color:var(--red-d);font:600 14px var(--fb)}
+.gline{height:3px;background:linear-gradient(90deg,var(--gold) 0 30%,var(--red) 30% 70%,var(--gold) 70% 100%);margin:18px 0}
+.gcard label.f{color:var(--ink);justify-content:center}
+.gin{border-radius:4px;border:2px solid var(--olive-d);background:#fff;font-family:var(--fd);font-weight:700;font-size:36px;letter-spacing:.4em;padding:6px 12px}
+.gin:focus{border-color:var(--olive-d);box-shadow:0 0 0 4px rgba(233,184,36,.6)}
+.gmsg{color:var(--red-d)}
+.gcard .btn.gold{background:var(--red);border-color:#7d0f1b;color:#fff;font-size:15.5px}
+.gcard .gnote{color:var(--mut)}
+.glink{color:var(--olive-m)}
+.gcard>*{animation:gin .6s var(--ease) both}
+.gcard>.glogo{animation:pop .8s var(--ease) both}
+.gcard>:nth-child(2){animation-delay:.10s}.gcard>:nth-child(3){animation-delay:.16s}.gcard>:nth-child(4){animation-delay:.22s}
+.gcard>.gline{animation:draw .8s var(--ease) .3s both}
+.gcard>:nth-child(n+6){animation-delay:.42s}
+@keyframes gin{from{opacity:0;transform:translateY(10px)}}
+@keyframes draw{from{transform:scaleX(0)}}
+
+h2.wkt{font-size:24px;min-width:230px;margin:0}
+
+/* ---- thanh tìm kiếm & lọc ---- */
+.fbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;padding:10px;background:#e8eed6;border:1px solid #c0cba8;border-radius:5px}
+.fbar>.sbox{flex:2 1 260px}
+.fbar>select{flex:1 1 150px;min-width:0}
+.sbox{position:relative;min-width:0}
+.sbox>svg.i{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--olive-m);pointer-events:none;width:18px;height:18px}
+.sbox .in{padding-left:40px;padding-right:44px}
+.sbox .sx{display:none;position:absolute;right:5px;top:50%;transform:translateY(-50%);width:36px;height:36px;border:0;border-radius:4px;background:transparent;color:var(--mut);place-items:center}
+.sbox .sx:hover{background:#e4ebd0;color:var(--red)}
+.sbox.has .sx{display:grid}
+.fcount{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13.5px;color:var(--mut);margin:0 0 9px;min-height:32px}
+.fcount b{color:var(--olive-d);font:700 18px/1 var(--fd)}
+
+/* ---- ô chọn chiến sĩ ---- */
+.pk-f{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.pk-list{display:grid;gap:3px;max-height:300px;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;border:1.5px solid #a3b08c;border-radius:4px;padding:4px;background:#fcfdf6}
+.pk-item{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:transparent;border:1px solid transparent;border-radius:4px;padding:6px 9px;min-height:52px}
+.pk-item:hover,.pk-item.top{background:#f8eec0;border-color:#d4b53f}
+.pk-item:active{background:#f1e2a0}
+.pk-t{display:flex;flex-direction:column;min-width:0;line-height:1.3}
+.pk-t b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700}
+.pk-t small{color:var(--mut);font-size:13px}
+.pk-more{text-align:center;color:var(--mut);font-size:13px;padding:9px}
+.av{width:36px;height:36px;border-radius:4px;background:var(--olive);color:var(--gold);font:700 21px/1 var(--fd);display:grid;place-items:center;flex:none;box-shadow:inset 0 -3px 0 var(--gold)}
+.pk-sel{display:flex;align-items:center;gap:12px;border:1.5px solid #2c8a4b;background:#e0efd8;border-radius:4px;padding:9px 12px}
+.pk-sel .pk-t{flex:1}
+.pk-sel .btn{margin-left:auto}
+
+/* ---- giấy hẹn khi gửi đăng ký xong ---- */
+.pass{padding:26px 22px 22px;border-top:3px solid var(--red)}
+.stamp{display:inline-block;transform:rotate(-6deg);border:3px solid var(--red);color:var(--red);font:700 27px/1 var(--fd);letter-spacing:.08em;text-transform:uppercase;padding:7px 17px 5px;border-radius:4px;margin:4px 0 18px;animation:stamp .55s var(--ease) both}
+@keyframes stamp{from{transform:scale(2.4) rotate(-16deg);opacity:0}60%{opacity:1}to{transform:rotate(-6deg)}}
+.pass .code{display:inline-block;font:700 46px/1 var(--fd);letter-spacing:.14em;color:var(--olive-d);border:2px solid var(--olive-d);padding:6px 8px 4px 18px;margin-top:8px;background:#fff}
+.perf{position:relative;border-top:2px dashed #a3b08c;margin:20px -22px 18px}
+.perf:before,.perf:after{content:"";position:absolute;top:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg)}
+.perf:before{left:-11px}.perf:after{right:-11px}
+
+/* ---- thanh điều hướng dưới (điện thoại) ---- */
+#bnav{background:rgba(244,247,234,.97)}
+@media(max-width:760px){
+  #bnav{border-top:2px solid var(--olive-d);box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+  #bnav button{border-radius:4px;font-family:var(--fb)}
+  #bnav button.on{color:var(--red-d);background:transparent;box-shadow:inset 0 3px 0 var(--red)}
+  #bnav .bn{background:var(--red);border-radius:3px}
+  .htitle h1{font-size:19px;line-height:1.05}
+  .htitle small{font-size:10.5px}
+  .htitle span{font-size:12px}
+  header.top{box-shadow:none}
+  .calhead h2{font-size:24px;flex:1 1 calc(100% - 116px);min-width:0}
+  .calhead h2.wkt{font-size:20px;line-height:1.1;white-space:normal}
+  .calhead .btn.sm{flex:0 0 auto;order:5}
+  .calhead select.in{max-width:none!important;order:4;flex:1 1 55%}
+  .day .n{font-size:20px}
+  .stat b{font-size:34px}
+  .md,.md.wide{border-radius:12px 12px 0 0}
+  table.rt tr{border-radius:5px;border-color:#b7c3a0;box-shadow:2px 2px 0 rgba(43,55,32,.1)}
+  .fbar{padding:8px}
+  .fbar>.sbox{flex-basis:100%}
+  .fbar>select{flex:1 1 calc(50% - 4px)}
+  .pk-list{max-height:260px}
+  .card{box-shadow:2px 2px 0 rgba(43,55,32,.12)}
+}
+@media(max-width:420px){
+  .htitle h1{font-size:17px}
+  .htitle span{font-size:11px}
+  .day .n{font-size:18px}
+  .card h2{font-size:23px}
+}
 </style>
 </head>
 <body>
@@ -503,14 +735,18 @@ const RANKS=['Binh nhì','Binh nhất','Hạ sĩ','Trung sĩ','Thượng sĩ'];
 const RELS=['Bố','Mẹ','Anh/Chị/Em','Ông/Bà','Vợ/Chồng','Người thân khác'];
 const RATE=['Tốt','Khá','Trung bình','Yếu'];
 const LVL={1:'Nhẹ',2:'Vừa',3:'Nặng'};
+/* Quy định: mỗi ngày thăm chỉ có một ca (mặc định 09:00–15:00) */
+const EARLY_RULE='Hạ sĩ quan / binh sĩ trực tiếp báo cáo cán bộ Đại đội.';
+const earlyBanner=()=>`<div class="banner info">${ic('info')}<div><b>Thăm xong sớm?</b> ${EARLY_RULE}</div></div>`;
+/* Trạng thái mặc định của thanh tìm kiếm / lọc ở từng danh sách */
+const FDEF={roster:{q:'',cls:'',squad:'',rank:'',st:'',sort:'cls'},eval:{q:'',cls:'',squad:'',st:''},appr:{q:'',cls:'',squad:''}};
 
 function seed(){
   const t=new Date(); const rs=`${t.getFullYear()}-${pad(t.getMonth()+1)}`;
-  const sl=[{id:'s1',label:'Buổi sáng',start:'09:00',end:'12:00',cap:15},{id:'s2',label:'Buổi chiều',start:'12:00',end:'15:00',cap:15}];
   const names=[['Nguyễn Văn An','Binh nhất','Y tá','Tiểu đội 1'],['Trần Quốc Bảo','Binh nhì','Y tá','Tiểu đội 1'],['Lê Minh Châu','Hạ sĩ','Y sĩ','Tiểu đội 2'],['Phạm Đức Dũng','Binh nhất','Y sĩ','Tiểu đội 2'],['Võ Thanh Hải','Binh nhì','Tài chính','Tiểu đội 3'],['Đặng Hoàng Khang','Hạ sĩ','Tài chính','Tiểu đội 3'],['Bùi Gia Long','Binh nhất','KCL','Tiểu đội 4'],['Huỳnh Tuấn Minh','Binh nhì','KCL','Tiểu đội 4']];
   return {
-    v:1,
-    settings:{unit:'Đại đội 1',school:'Trường Cao đẳng Hậu cần 2',parent:'Tổng cục Hậu cần - Kỹ thuật',pin:'1234',userPin:'0000',visitFrom:'09:00',visitTo:'15:00',maxVisitors:3,minDaysAhead:1,rangeStart:rs,rangeMonths:24,slots:sl,
+    v:2,
+    settings:{unit:'Đại đội 1',school:'Trường Cao đẳng Hậu cần 2',parent:'Tổng cục Hậu cần - Kỹ thuật',pin:'1234',userPin:'0000',visitFrom:'09:00',visitTo:'15:00',maxVisitors:3,minDaysAhead:1,rangeStart:rs,rangeMonths:24,cap:30,
       suggest:{1:{type:'limit',minutes:60},2:{type:'limit',minutes:30},3:{type:'ban',minutes:0}}},
     classes:['Y tá','Y sĩ','Tài chính','KCL'],
     soldiers:names.map(n=>({id:uid(),name:n[0],rank:n[1],cls:n[2],squad:n[3],phone:'',demo:true})),
@@ -521,13 +757,30 @@ function seed(){
       {id:'v7',name:'Vắng mặt không lý do',level:3},{id:'v8',name:'Vi phạm quy định bảo mật',level:3},{id:'v9',name:'Vi phạm kỷ luật nghiêm trọng',level:3}]
   };
 }
+/* Chuẩn hóa dữ liệu đã lưu: v2 = một ca thăm duy nhất, không còn ca sáng / ca chiều */
+function migrate(d){
+  const st=d.settings;
+  st.userPin=st.userPin||'0000';
+  if((d.v||1)<2){
+    const old=Array.isArray(st.slots)?st.slots.reduce((a,s)=>a+(+s.cap||0),0):0;
+    st.cap=old||+st.cap||30;
+    st.visitFrom='09:00';st.visitTo='15:00';
+    delete st.slots;
+    Object.values(d.days||{}).forEach(o=>{if(o)delete o.slots});
+    (d.regs||[]).forEach(r=>{delete r.slotId});
+    d.v=2;
+  }
+  st.cap=Math.max(1,+st.cap||30);
+  st.visitFrom=st.visitFrom||'09:00';st.visitTo=st.visitTo||'15:00';
+  return d;
+}
 let S;
 try{S=JSON.parse(localStorage.getItem(LS))}catch(e){}
 if(!S||!S.settings)S=seed();
-S.settings.userPin=S.settings.userPin||'0000';S.settings.visitFrom=S.settings.visitFrom||'09:00';S.settings.visitTo=S.settings.visitTo||'15:00';
+S=migrate(S);
 const save=()=>{try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){toast('Không lưu được dữ liệu trên trình duyệt','err')}};
 
-const ui={view:'cal',auth:sessionStorage.getItem(AUTHK)||'',cmd:sessionStorage.getItem(AUTHK)==='cmd',gerr:0,glock:0,month:null,reg:{},look:{},week:mondayOf(today()),sf:'',cf:'',af:'',df:null,stf:'all',done:false,want:''};
+const ui={view:'cal',auth:sessionStorage.getItem(AUTHK)||'',cmd:sessionStorage.getItem(AUTHK)==='cmd',gerr:0,glock:0,month:null,reg:{},look:{},week:mondayOf(today()),flt:JSON.parse(JSON.stringify(FDEF)),dec:{},df:null,stf:'all',done:false,want:''};
 const rangeEnd=()=>{const k=monthAdd(S.settings.rangeStart,S.settings.rangeMonths);return addDays(k+'-01',-1)};
 const rangeStartD=()=>S.settings.rangeStart+'-01';
 const cycleLabel=()=>{const s=S.settings.rangeStart.split('-'),e=rangeEnd().split('-');return `${+s[1]}/${s[0]} – ${+e[1]}/${e[0]}`};
@@ -541,11 +794,11 @@ const soldier=id=>S.soldiers.find(s=>s.id===id);
 function dayInfo(ds){
   const o=S.days[ds]; const wk=dow(ds)===0||dow(ds)===6;
   const open=(o&&typeof o.open==='boolean')?o.open:wk;
-  return {open,reason:(o&&o.reason)||'',slotIds:(o&&o.slots)||S.settings.slots.map(s=>s.id),custom:!!o,weekend:wk};
+  return {open,reason:(o&&o.reason)||'',custom:!!o,weekend:wk};
 }
-const slotsFor=ds=>{const i=dayInfo(ds);return S.settings.slots.filter(s=>i.slotIds.includes(s.id))};
-const activeRegs=(ds,sid)=>S.regs.filter(r=>r.date===ds&&(sid?r.slotId===sid:true)&&r.status!=='rejected'&&r.status!=='cancelled');
-const remaining=(ds,slot)=>Math.max(0,slot.cap-activeRegs(ds,slot.id).length);
+const visitSpan=()=>`${S.settings.visitFrom}–${S.settings.visitTo}`;
+const activeRegs=ds=>S.regs.filter(r=>r.date===ds&&r.status!=='rejected'&&r.status!=='cancelled');
+const remaining=ds=>Math.max(0,S.settings.cap-activeRegs(ds).length);
 function elig(sid,ds){
   let best={status:'ok'};const rk={ok:0,limit:1,ban:2};
   for(const d of S.decisions){
@@ -555,7 +808,7 @@ function elig(sid,ds){
   return best;
 }
 const pendingEvals=()=>S.evals.filter(e=>e.violations.length&&!e.decided);
-const upcomingOpen=(n,from)=>{const out=[];let d=from;const end=rangeEnd();while(d<=end&&out.length<n){if(d>=rangeStartD()&&dayInfo(d).open&&slotsFor(d).length)out.push(d);d=addDays(d,1)}return out};
+const upcomingOpen=(n,from)=>{const out=[];let d=from;const end=rangeEnd();while(d<=end&&out.length<n){if(d>=rangeStartD()&&dayInfo(d).open)out.push(d);d=addDays(d,1)}return out};
 function suggestFor(violIds){
   let lv=0;violIds.forEach(id=>{const v=S.vtypes.find(x=>x.id===id);if(v)lv=Math.max(lv,v.level)});
   return lv?{level:lv,...S.settings.suggest[lv]}:null;
@@ -613,6 +866,82 @@ function ask(msg,fn,label='Xác nhận'){modal(`<h3>${ic('alert')} Xác nhận</
 const val=id=>document.getElementById(id)?.value??'';
 const opts=(arr,sel)=>arr.map(a=>{const v=Array.isArray(a)?a[0]:a,l=Array.isArray(a)?a[1]:a;return `<option value="${esc(v)}" ${v===sel?'selected':''}>${esc(l)}</option>`}).join('');
 
+/* ============ tìm kiếm & lọc danh sách hạ sĩ quan / binh sĩ ============ */
+/* Bỏ dấu tiếng Việt: gõ "nguyen van an" vẫn ra "Nguyễn Văn An"; nhiều từ khóa cách nhau bằng dấu cách, phải khớp tất cả */
+const norm=s=>String(s??'').toLowerCase().replace(/đ/g,'d').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,' ').trim();
+const toks=q=>norm(q).split(' ').filter(Boolean);
+const given=n=>String(n||'').trim().split(/\s+/).pop()||'';
+const natCmp=(a,b)=>String(a??'').localeCompare(String(b??''),'vi',{numeric:true,sensitivity:'base'});
+const cmpClass=(a,b)=>(a.cls||'').localeCompare(b.cls||'')||a.name.localeCompare(b.name,'vi');
+const squadsOf=()=>[...new Set(S.soldiers.map(s=>(s.squad||'').trim()).filter(Boolean))].sort(natCmp);
+/* Từ khóa ngắn (1–2 ký tự) khớp đầu từ: "an" ra An, Ân, Anh — không ra "Văn". Từ khóa ≥3 ký tự khớp ở bất kỳ đâu (tìm theo đuôi SĐT…) */
+const hit=(h,t)=>(' '+h).includes(' '+t)||(t.length>2&&h.includes(t));
+const hayOf=s=>norm(`${s.name} ${s.rank} ${s.cls} ${s.squad||''} ${s.phone||''}`);
+function filterSoldiers(list,f){
+  const tk=toks(f.q||'');
+  return list.filter(s=>(!f.cls||s.cls===f.cls)&&(!f.squad||(s.squad||'')===f.squad)&&(!f.rank||s.rank===f.rank)&&(!tk.length||(h=>tk.every(t=>hit(h,t)))(hayOf(s))));
+}
+const fActive=f=>!!((f.q||'').trim()||f.cls||f.squad||f.rank||f.st);
+const sbox=(attr,path,v,ph)=>`<div class="sbox ${v?'has':''}">${ic('search')}<input class="in" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" ${attr}="${path}" value="${esc(v)}" placeholder="${esc(ph)}" aria-label="${esc(ph)}"><button type="button" class="sx" data-act="sxClear" aria-label="Xóa nội dung tìm kiếm">${ic('x')}</button></div>`;
+const fsel=(attr,path,v,all,arr)=>`<select class="in" ${attr}="${path}" aria-label="${esc(all)}"><option value="">${esc(all)}</option>${opts(arr,v)}</select>`;
+const FCFG={
+  roster:()=>({ph:'Tìm tên, lớp, tiểu đội, SĐT',rank:1,st:[['ok','Bình thường'],['limit','Đang hạn chế'],['ban','Cấm thăm']],stAll:'Mọi tình trạng thăm',sort:[['cls','Xếp theo lớp'],['name','Xếp theo tên A → Z'],['squad','Xếp theo tiểu đội']]}),
+  eval:()=>({ph:'Tìm tên, lớp, tiểu đội',st:[['none','Chưa đánh giá'],['good','Đạt'],['viol','Có vi phạm'],['wait','Chờ quyết định']],stAll:'Mọi trạng thái'}),
+  appr:()=>({ph:'Tìm tên, người thăm, SĐT, mã'})
+};
+function filterBar(k){
+  const c=FCFG[k](),f=ui.flt[k];
+  return `<div class="fbar" id="fb-${k}">${sbox('data-flt',k+'.q',f.q,c.ph)}${fsel('data-flt',k+'.cls',f.cls,'Tất cả các lớp',S.classes)}${fsel('data-flt',k+'.squad',f.squad,'Tất cả tiểu đội',squadsOf())}${c.rank?fsel('data-flt',k+'.rank',f.rank,'Mọi cấp bậc',RANKS):''}${c.st?fsel('data-flt',k+'.st',f.st,c.stAll,c.st):''}${c.sort?`<select class="in" data-flt="${k}.sort" aria-label="Sắp xếp">${opts(c.sort,f.sort)}</select>`:''}</div>`;
+}
+function countLine(k,n,total,noun){
+  return `<div class="fcount"><span>Hiển thị <b>${n}</b> / ${total} ${noun}</span>${fActive(ui.flt[k])?`<button type="button" class="btn sm ghost" data-act="fClear" data-k="${k}">${ic('x')} Xóa tìm kiếm / lọc</button>`:''}</div>`;
+}
+const noMatch=(total,msg)=>total?`<div class="empty-s">${ic('search')}<br>Không có kết quả phù hợp.<br><small>Thử từ khóa ngắn hơn hoặc bỏ bớt bộ lọc.</small></div>`:`<div class="empty-s">${ic('users')}<br>${msg}</div>`;
+/* Chỉ vẽ lại phần kết quả khi gõ → ô tìm kiếm giữ nguyên con trỏ, bàn phím không bị đóng */
+const LISTS={roster:()=>rosterList(),eval:()=>evalList(),appr:()=>apprList()};
+function refreshList(k){const el=document.getElementById('fl-'+k);if(!el)return;el.innerHTML=LISTS[k]();labelTables(el)}
+function setFlt(t){
+  const [k,f]=t.dataset.flt.split('.');if(!ui.flt[k])return;
+  ui.flt[k][f]=t.value;
+  if(t.tagName==='INPUT'&&t.parentElement)t.parentElement.classList.toggle('has',!!t.value);
+  refreshList(k);
+}
+
+/* ---- ô chọn chiến sĩ có tìm kiếm (dùng ở Đăng ký, Tra cứu, Quyết định thủ công) ---- */
+const PK={reg:()=>ui.reg,look:()=>ui.look,dec:()=>ui.dec};
+const PK_MAX=30;
+const initial=s=>(given(s.name).charAt(0)||'?').toUpperCase();
+const sInfo=s=>`${esc(s.rank)} · ${esc(s.cls)}${s.squad?' · '+esc(s.squad):''}`;
+function scoreS(s,tk){const w=norm(s.name).split(' ');return tk.reduce((a,t)=>a+(w.some(x=>x.startsWith(t))?2:1),0)+(w[w.length-1]===tk[tk.length-1]?1:0)}
+function pickResults(st){
+  const tk=toks(st.q||'');
+  const l=filterSoldiers(S.soldiers,{q:st.q,cls:st.cls,squad:st.squad});
+  if(tk.length)return l.map(s=>[s,scoreS(s,tk)]).sort((a,b)=>b[1]-a[1]||a[0].name.localeCompare(b[0].name,'vi')).map(x=>x[0]);
+  return l.sort(cmpClass);
+}
+function pickList(k){
+  const st=PK[k]();
+  if(!S.soldiers.length)return `<div class="empty-s" style="padding:18px 10px">Chưa có chiến sĩ trong danh sách.</div>`;
+  const l=pickResults(st),has=toks(st.q||'').length>0;
+  if(!l.length)return `<div class="fcount"><span>Không tìm thấy chiến sĩ phù hợp</span></div><div class="empty-s" style="padding:14px 10px"><small>Thử gõ ít từ hơn hoặc bỏ lọc lớp / tiểu đội.</small></div>`;
+  return `<div class="fcount"><span><b>${l.length}</b> chiến sĩ${has?' phù hợp':''} · chạm tên để chọn</span></div><div class="pk-list">${l.slice(0,PK_MAX).map((s,i)=>`<button type="button" class="pk-item ${has&&i===0?'top':''}" data-act="pkPick" data-k="${k}" data-id="${s.id}"><span class="av">${esc(initial(s))}</span><span class="pk-t"><b>${esc(s.name)}</b><small>${sInfo(s)}</small></span></button>`).join('')}${l.length>PK_MAX?`<div class="pk-more">Còn ${l.length-PK_MAX} chiến sĩ khác — gõ thêm để thu hẹp</div>`:''}</div>`;
+}
+function soldierPicker(k){
+  const st=PK[k](),s=st.sid&&soldier(st.sid);
+  if(s)return `<div class="fld" id="pk-${k}"><label class="f">Chiến sĩ</label><div class="pk-sel"><span class="av">${esc(initial(s))}</span><span class="pk-t"><b>${esc(s.name)}</b><small>${sInfo(s)}</small></span><button type="button" class="btn sm" data-act="pkClear" data-k="${k}">Đổi</button></div></div>`;
+  return `<div class="fld pk" id="pk-${k}"><label class="f">Chiến sĩ</label>${sbox('data-pk',k+'.q',st.q||'','Gõ tên — không cần gõ dấu')}<div class="pk-f">${fsel('data-pk',k+'.cls',st.cls||'','Tất cả các lớp',S.classes)}${fsel('data-pk',k+'.squad',st.squad||'','Tất cả tiểu đội',squadsOf())}</div><div id="pkl-${k}">${pickList(k)}</div></div>`;
+}
+function setPk(t){
+  const [k,f]=t.dataset.pk.split('.');PK[k]()[f]=t.value;
+  if(t.tagName==='INPUT'&&t.parentElement)t.parentElement.classList.toggle('has',!!t.value);
+  const el=document.getElementById('pkl-'+k);if(el)el.innerHTML=pickList(k);
+}
+function sanitizeFlt(){
+  const sq=squadsOf(),ok=f=>{if(f.cls&&!S.classes.includes(f.cls))f.cls='';if(f.squad&&!sq.includes(f.squad))f.squad=''};
+  Object.values(ui.flt).forEach(ok);
+  Object.values(PK).forEach(g=>{const st=g();ok(st);if(st.sid&&!soldier(st.sid))st.sid=''});
+}
+
 /* ============ cổng bảo mật ============ */
 function renderGate(){
   const g=$('#gate'),left=Math.ceil((ui.glock-Date.now())/1000),lk=left>0;
@@ -665,7 +994,7 @@ function render(quiet){
   if(!ui.auth)return renderGate();
   $('#gate').innerHTML='';
   if(!ui.cmd&&['dash','appr','roster','eval','set'].includes(ui.view))ui.view='cal';
-  renderHeader();renderNav();
+  sanitizeFlt();renderHeader();renderNav();
   const V={cal:calView,reg:regView,look:lookView,dash:dashView,appr:apprView,roster:rosterView,eval:evalView,set:setView}[ui.view];
   const m=$('#main');m.innerHTML=`<div class="view">${V()}</div>`;
   labelTables(m);
@@ -688,14 +1017,12 @@ function calView(){
   for(let i=0;i<off;i++)cells+='<div class="day empty"></div>';
   for(let d=1;d<=dim;d++){
     const ds=`${y}-${pad(m)}-${pad(d)}`, info=dayInfo(ds), inr=inRange(ds);
-    const sl=info.open?slotsFor(ds):[];const cap=sl.reduce((a,s)=>a+s.cap,0),n=sl.length?activeRegs(ds).length:0;
+    const cap=S.settings.cap,n=info.open?activeRegs(ds).length:0;
     const pend=ui.cmd&&activeRegs(ds).some(r=>r.status==='pending');
     let inner=`<span class="n">${d}</span>`;
-    if(info.open&&sl.length)inner+=`<small>${n}/${cap} lượt</small><div class="bar"><i style="width:${cap?Math.min(100,n/cap*100):0}%;background-position:${cap?Math.min(100,n/cap*100):0}% 0"></i></div>`;
-    else if(info.open)inner+=`<span class="tg">Chưa có ca thăm</span>`;
+    if(info.open)inner+=`<small>${n}/${cap} lượt</small><div class="bar"><i style="width:${cap?Math.min(100,n/cap*100):0}%;background-position:${cap?Math.min(100,n/cap*100):0}% 0"></i></div>`;
     else if(info.weekend)inner+=`<span class="tg">${esc(info.reason||'Không thăm')}</span>`;
     if(info.open&&!info.weekend)inner+=`<span class="badge b-blue" style="font-size:10px;padding:1px 6px;align-self:flex-start">Mở thêm</span>`;
-    if(info.open&&info.reason)inner=inner.replace('</span>','</span>');
     cells+=`<button class="day ${info.open?'open':'closed'} ${info.weekend?'we':''} ${ds<td?'past':''} ${ds===td?'today':''} ${!inr?'out':''}" data-act="day" data-d="${ds}" style="animation:in .5s var(--ease) ${Math.min(d*12,300)}ms both">${pend?'<i class="pd"></i>':''}${inner}</button>`;
   }
   const first=ui.month<=S.settings.rangeStart, last=ui.month>=monthKey(rangeEnd());
@@ -707,58 +1034,56 @@ function calView(){
       <h2>Tháng ${m} / ${y}</h2>
       <button class="iconbtn" data-act="mon" data-n="1" ${last?'disabled':''}>${ic('r')}</button>
       <button class="btn sm ghost" data-act="monToday" style="margin-left:auto">Hôm nay</button>
-      <select class="in" style="max-width:150px" data-act-change="monJump">${monthOpts()}</select>
+      <select class="in" style="max-width:190px" data-act-change="monJump">${monthOpts()}</select>
     </div>
     <div class="cal">${['T2','T3','T4','T5','T6','T7','CN'].map((x,i)=>`<div class="dn ${i>4?'we':''}">${x}</div>`).join('')}${cells}</div>
     <div class="legend"><span><i style="background:#fff6e0;border-color:#f2d68a"></i>Ngày có thể thăm</span><span><i style="background:repeating-linear-gradient(135deg,#fff3f4,#fff3f4 4px,#fde5e8 4px,#fde5e8 8px);border-color:#f3b9c0"></i>Đơn vị không thăm (trực chiến, công tác…)</span><span><i style="box-shadow:inset 0 0 0 2px var(--blue)"></i>Hôm nay</span><span class="only-m" style="width:100%">↔ Vuốt trái/phải trên lịch để đổi tháng</span></div>
    </div>
    <div style="display:grid;gap:16px;align-content:start">
     <div class="card"><h2>${ic('clock')} Các buổi thăm sắp tới</h2><div class="sub">Chọn một ngày để xem chi tiết hoặc đăng ký.</div>
-     ${up.length?up.map(d=>{const sl=slotsFor(d);return `<button class="chip" style="width:100%;margin-bottom:8px" data-act="day" data-d="${d}"><b>${vn(d)}</b><small>${sl.map(s=>`${s.label} ${s.start}–${s.end}: còn ${remaining(d,s)} chỗ`).join(' · ')}</small></button>`}).join(''):'<div class="empty-s">Chưa có ngày thăm.</div>'}
+     ${up.length?up.map(d=>{return `<button class="chip" style="width:100%;margin-bottom:8px" data-act="day" data-d="${d}"><b>${vn(d)}</b><small>Ca thăm ${visitSpan()}: còn ${remaining(d)}/${S.settings.cap} chỗ</small></button>`}).join(''):'<div class="empty-s">Chưa có ngày thăm.</div>'}
      <button class="btn pri" style="width:100%;margin-top:6px" data-act="go" data-v="reg">${ic('userplus')} Đăng ký thăm thân</button>
     </div>
     <div class="card"><h2>${ic('info')} Lưu ý</h2>
-     <div class="kv"><span>Giờ thăm</span><b>${S.settings.visitFrom} – ${S.settings.visitTo}</b></div><div class="kv"><span>Chu kỳ lịch</span><b>${cycleLabel()}</b></div><div class="kv"><span>Thăm tối đa</span><b>${S.settings.maxVisitors} người / lượt</b></div>
+     <div class="kv"><span>Giờ thăm (1 ca duy nhất)</span><b>${S.settings.visitFrom} – ${S.settings.visitTo}</b></div><div class="kv"><span>Chu kỳ lịch</span><b>${cycleLabel()}</b></div><div class="kv"><span>Thăm tối đa</span><b>${S.settings.maxVisitors} người / lượt</b></div>
      <div class="kv"><span>Đăng ký trước</span><b>≥ ${S.settings.minDaysAhead} ngày</b></div>
      <div class="kv"><span>Mang theo</span><b>Giấy tờ tùy thân</b></div>
-     <div class="kv"><span>Lịch thay đổi</span><b>Theo lệnh Đại đội trưởng</b></div>
+     <div class="kv"><span>Lịch thay đổi</span><b>Theo lệnh Đại đội trưởng</b></div>${earlyBanner()}
     </div>
    </div></div>`;
 }
 function monthOpts(){let o='',k=S.settings.rangeStart;for(let i=0;i<S.settings.rangeMonths;i++){const [y,m]=k.split('-');o+=`<option value="${k}" ${k===ui.month?'selected':''}>Tháng ${m}/${y}</option>`;k=monthAdd(k,1)}return o}
 
 function dayModal(ds){
-  const info=dayInfo(ds),sl=slotsFor(ds),regs=activeRegs(ds);
+  const info=dayInfo(ds),regs=activeRegs(ds),cap=S.settings.cap;
   let h=`<h3>${ic('cal')} ${vn(ds)}</h3>`;
   if(!info.open)h+=`<div class="banner bad">${ic('alert')}<div><b>Ngày này đơn vị không tổ chức thăm thân.</b><br>${esc(info.reason||'Theo kế hoạch của đơn vị.')}</div></div>`;
   else{
-    h+=sl.map(s=>{const r=remaining(ds,s);return `<div class="kv"><span>${s.label} · ${s.start}–${s.end}</span><b class="${r?'':'badge b-bad'}">${r?`Còn ${r}/${s.cap} chỗ`:'Hết chỗ'}</b></div>`}).join('');
+    const r=remaining(ds);
+    h+=`<div class="kv"><span>Ca thăm · ${visitSpan()}</span><b class="${r?'':'badge b-bad'}">${r?`Còn ${r}/${cap} chỗ`:'Hết chỗ'}</b></div>`;
     if(info.reason)h+=`<div class="banner info">${ic('info')}<div>${esc(info.reason)}</div></div>`;
+    h+=earlyBanner();
   }
   if(ui.cmd){
     h+=`<hr style="border:0;border-top:1px solid var(--line);margin:16px 0"><h3 style="font-size:16px">${ic('sliders')} Chỉnh sửa ngày (Đại đội trưởng)</h3>
     <div class="fld" style="display:flex;gap:12px;align-items:center"><label class="sw"><input type="checkbox" id="dOpen" ${info.open?'checked':''}><i></i></label><b>Cho phép thăm thân ngày này</b></div>
     <div class="fld"><label class="f">Ghi chú / lý do</label><input class="in" id="dReason" list="reasons" value="${esc(info.reason)}" placeholder="VD: Trực chiến, công tác đột xuất, kiểm tra…"><datalist id="reasons"><option>Trực chiến</option><option>Công tác đột xuất</option><option>Huấn luyện dã ngoại</option><option>Kiểm tra, thi kết thúc học phần</option><option>Làm nhiệm vụ của Nhà trường</option></datalist></div>
-    <div class="fld"><label class="f">Các ca thăm áp dụng</label><div class="chips">${S.settings.slots.map(s=>`<label class="chip"><input type="checkbox" class="dSlot" value="${s.id}" ${info.slotIds.includes(s.id)?'checked':''}> ${s.label} <small>${s.start}–${s.end}</small></label>`).join('')}</div></div>
     ${info.weekend?`<label style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><input type="checkbox" id="dWeek"> Áp dụng cho cả cuối tuần (T7 + CN)</label>`:''}
     ${regs.length?`<div class="banner warn">${ic('alert')}<div>Ngày này đã có <b>${regs.length}</b> đăng ký. Nếu đóng ngày, các đăng ký sẽ <b>bị hủy</b> và hệ thống nhắc bạn thông báo lại.</div></div>`:''}
     <div class="foot"><button class="btn ghost" data-act="dayReset" data-d="${ds}">Khôi phục mặc định</button><button class="btn pri" data-act="daySave" data-d="${ds}">${ic('check')} Lưu</button></div>`;
-  }else if(info.open&&sl.length&&ds>=today()){
+  }else if(info.open&&ds>=today()){
     h+=`<div class="foot"><button class="btn" data-act="close">Đóng</button><button class="btn pri" data-act="dayReg" data-d="${ds}">${ic('userplus')} Đăng ký ngày này</button></div>`;
   }else h+=`<div class="foot"><button class="btn" data-act="close">Đóng</button></div>`;
   modal(h);
 }
 function daySave(ds){
   const open=$('#dOpen').checked,reason=val('dReason').trim();
-  const slots=[...document.querySelectorAll('.dSlot:checked')].map(x=>x.value);
   const week=$('#dWeek')?.checked;
-  if(open&&!slots.length)return toast('Chọn ít nhất một ca thăm','err');
   const days=week?[mondayOf(ds)].map(m=>[addDays(m,5),addDays(m,6)])[0]:[ds];
   let cancelled=0;
   days.forEach(d=>{
-    S.days[d]={open,reason,slots};
+    S.days[d]={open,reason};
     if(!open)S.regs.forEach(r=>{if(r.date===d&&['pending','approved'].includes(r.status)){r.status='cancelled';r.note=(r.note?r.note+' | ':'')+'Hủy do đơn vị thay đổi lịch';cancelled++}});
-    else S.regs.forEach(r=>{if(r.date===d&&!slots.includes(r.slotId)&&['pending','approved'].includes(r.status)){r.status='cancelled';cancelled++}});
   });
   save();closeModal();rerenderKeep();toast(cancelled?`Đã lưu. ${cancelled} đăng ký bị hủy, cần thông báo lại thân nhân.`:'Đã cập nhật lịch');
 }
@@ -771,31 +1096,23 @@ function eligBanner(e){
   if(e.status==='limit')return `<div class="banner warn">${ic('clock')}<div><b>Hạn chế thời gian thăm: tối đa ${e.minutes} phút.</b><br>${esc(e.reason||'Theo quyết định của Đại đội trưởng')}</div></div>`;
   return `<div class="banner ok">${ic('check')}<div>Đủ điều kiện thăm thân bình thường.</div></div>`;
 }
-function soldierPicker(st,key){
-  const list=S.soldiers.filter(s=>!st.cls||s.cls===st.cls);
-  return `<div class="row"><div class="fld"><label class="f">Lớp</label><select class="in" data-st="${key}.cls" data-rr="1"><option value="">Tất cả các lớp</option>${opts(S.classes,st.cls)}</select></div>
-  <div class="fld"><label class="f">Chiến sĩ</label><select class="in" data-st="${key}.sid" data-rr="1"><option value="">— Chọn chiến sĩ —</option>${list.map(s=>`<option value="${s.id}" ${s.id===st.sid?'selected':''}>${esc(s.name)} · ${esc(s.rank)}</option>`).join('')}</select></div></div>`;
-}
 function regView(){
   const r=ui.reg;const td=today();
   const minD=addDays(td,S.settings.minDaysAhead);
   const days=upcomingOpen(10,minD);
   if(r.date&&(r.date<minD||!dayInfo(r.date).open))r.date='';
-  const sl=r.date?slotsFor(r.date):[];
-  if(r.slot&&!sl.find(s=>s.id===r.slot))r.slot='';
   const e=elState(r.sid,r.date)||(r.sid&&days[0]?elig(r.sid,days[0]):null);
   const ban=r.sid&&r.date&&elig(r.sid,r.date).status==='ban';
   const dup=r.sid&&r.date&&S.regs.some(x=>x.soldierId===r.sid&&x.date===r.date&&['pending','approved'].includes(x.status));
-  if(ui.done)return `<div class="card" style="max-width:560px;margin:auto;text-align:center"><div style="font-size:54px;animation:pop .6s var(--ease)">✅</div><h2 style="justify-content:center;font-size:21px">Đã gửi đăng ký!</h2><p class="sub">Mã đăng ký của bạn: <b style="color:var(--red);font-size:18px">${esc(ui.done)}</b><br>Đăng ký đang chờ Đại đội trưởng duyệt. Dùng mục “Tra cứu” để xem kết quả.</p><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><button class="btn" data-act="go" data-v="look">Tra cứu</button><button class="btn pri" data-act="regNew">Đăng ký thêm</button></div></div>`;
+  if(ui.done)return `<div class="card pass" style="max-width:560px;margin:auto;text-align:center"><div class="stamp">Đã gửi</div><h2 style="justify-content:center;font-size:28px">Đăng ký đã được gửi</h2><p class="sub" style="margin:0">Mã đăng ký của bạn<br><b class="code">${esc(ui.done)}</b></p><div class="perf"></div><p class="sub">Đăng ký đang chờ Đại đội trưởng duyệt. Dùng mục “Tra cứu” để xem kết quả.</p><div style="text-align:left">${earlyBanner()}</div><div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px"><button class="btn" data-act="go" data-v="look">Tra cứu</button><button class="btn pri" data-act="regNew">Đăng ký thêm</button></div></div>`;
   return `<div class="grid g2 stagger"><div class="card">
    <h2>${ic('userplus')} Đăng ký thăm thân</h2><div class="sub">Điền lần lượt 3 bước. Chỉ những ngày đơn vị cho phép thăm mới hiển thị.</div>
-   <h3 style="font-size:14px;color:var(--red);margin-bottom:8px">① Chọn chiến sĩ được thăm</h3>${soldierPicker(r,'reg')}
+   <h3 class="step">① Chọn chiến sĩ được thăm</h3>${soldierPicker('reg')}
    ${r.sid?eligBanner(e):''}
-   <h3 style="font-size:14px;color:var(--red);margin:14px 0 8px">② Chọn ngày và ca thăm</h3>
-   <div class="chips dates" style="margin-bottom:12px">${days.length?days.map(d=>{const tot=slotsFor(d).reduce((a,s)=>a+remaining(d,s),0);return `<button class="chip ${r.date===d?'on':''}" data-act="pickDate" data-d="${d}" ${tot?'':'disabled'}>${WDs[dow(d)]} ${dm(d)}<small>${tot?`Còn ${tot} chỗ`:'Hết chỗ'}</small></button>`}).join(''):'<span class="badge b-gray">Hiện chưa có ngày thăm nào mở</span>'}</div>
-   ${r.date?`<div class="chips slots" style="margin-bottom:6px">${sl.map(s=>{const rm=remaining(r.date,s);return `<button class="chip ${r.slot===s.id?'on':''}" data-act="pickSlot" data-s="${s.id}" ${rm?'':'disabled'}>${s.label}<small>${s.start}–${s.end} · còn ${rm}</small></button>`}).join('')}</div>`:''}
+   <h3 class="step">② Chọn ngày thăm <small>(ca thăm ${visitSpan()})</small></h3>
+   <div class="chips dates" style="margin-bottom:12px">${days.length?days.map(d=>{const tot=remaining(d);return `<button class="chip ${r.date===d?'on':''}" data-act="pickDate" data-d="${d}" ${tot?'':'disabled'}>${WDs[dow(d)]} ${dm(d)}<small>${tot?`Còn ${tot} chỗ`:'Hết chỗ'}</small></button>`}).join(''):'<span class="badge b-gray">Hiện chưa có ngày thăm nào mở</span>'}</div>
    ${dup?`<div class="banner warn">${ic('alert')}<div>Chiến sĩ này đã có đăng ký trong ngày ${dm(r.date)}.</div></div>`:''}
-   <h3 style="font-size:14px;color:var(--red);margin:14px 0 8px">③ Thông tin người thăm</h3>
+   <h3 class="step">③ Thông tin người thăm</h3>
    <div class="row"><div class="fld"><label class="f">Họ tên người thăm</label><input class="in" data-st="reg.vname" value="${esc(r.vname||'')}" placeholder="Nguyễn Văn A" autocomplete="name" autocapitalize="words" enterkeyhint="next"></div>
    <div class="fld"><label class="f">Quan hệ</label><select class="in" data-st="reg.rel">${opts(RELS,r.rel||RELS[0])}</select></div></div>
    <div class="row"><div class="fld"><label class="f">Số người đi cùng (tối đa ${S.settings.maxVisitors})</label><select class="in" data-st="reg.count">${opts(Array.from({length:S.settings.maxVisitors},(_,i)=>String(i+1)),String(r.count||1))}</select></div>
@@ -804,34 +1121,34 @@ function regView(){
    <button class="btn pri stick" style="width:100%;padding:13px" data-act="regSubmit" ${(ban||dup)?'disabled':''}>${ic('check')} Gửi đăng ký</button>
   </div>
   <div class="card" style="align-self:start"><h2>${ic('info')} Quy định thăm thân</h2><div class="sub">Theo kế hoạch của đơn vị</div>
-   <div class="kv"><span>Ngày thăm</span><b>Thứ 7, Chủ nhật</b></div><div class="kv"><span>Giờ thăm</span><b>${S.settings.visitFrom} – ${S.settings.visitTo}</b></div>
-   ${S.settings.slots.map(s=>`<div class="kv"><span>${s.label}</span><b>${s.start}–${s.end}</b></div>`).join('')}
+   <div class="kv"><span>Ngày thăm</span><b>Thứ 7, Chủ nhật</b></div><div class="kv"><span>Giờ thăm</span><b>${S.settings.visitFrom} – ${S.settings.visitTo} (1 ca duy nhất)</b></div>
+   <div class="kv"><span>Số lượt / ngày</span><b>${S.settings.cap}</b></div>
    <div class="kv"><span>Số người/lượt</span><b>≤ ${S.settings.maxVisitors}</b></div>
+   ${earlyBanner()}
    <p style="margin-top:12px;color:var(--mut);font-size:13px">Chiến sĩ vi phạm trong tuần có thể bị <b>hạn chế thời gian</b> hoặc <b>chưa được thăm</b> theo quyết định của Đại đội trưởng. Lịch có thể thay đổi đột xuất khi đơn vị trực chiến hoặc có công tác.</p></div></div>`;
 }
 function regSubmit(){
   const r=ui.reg;
   if(!r.sid)return toast('Hãy chọn chiến sĩ','err');
   if(!r.date)return toast('Hãy chọn ngày thăm','err');
-  if(!r.slot)return toast('Hãy chọn ca thăm','err');
   if(!(r.vname||'').trim())return toast('Nhập họ tên người thăm','err');
   if(!/^[0-9+\s.]{9,14}$/.test((r.phone||'').trim()))return toast('Số điện thoại chưa hợp lệ','err');
   const e=elig(r.sid,r.date);if(e.status==='ban')return toast('Chiến sĩ không được thăm ngày này','err');
-  const sl=slotsFor(r.date).find(s=>s.id===r.slot);if(!sl||!remaining(r.date,sl))return toast('Ca thăm đã hết chỗ','err');
+  if(!remaining(r.date))return toast('Ngày thăm đã hết chỗ','err');
   if(S.regs.some(x=>x.soldierId===r.sid&&x.date===r.date&&['pending','approved'].includes(x.status)))return toast('Đã có đăng ký ngày này','err');
   const code='TT'+Math.random().toString(36).slice(2,7).toUpperCase();
-  S.regs.push({id:uid(),code,date:r.date,slotId:r.slot,soldierId:r.sid,vname:r.vname.trim(),rel:r.rel||RELS[0],count:+r.count||1,phone:r.phone.trim(),note:(r.note||'').trim(),status:'pending',limit:e.status==='limit'?e.minutes:0,at:Date.now()});
-  save();ui.done=code;ui.reg={cls:r.cls};render();window.scrollTo({top:0,behavior:'smooth'});
+  S.regs.push({id:uid(),code,date:r.date,soldierId:r.sid,vname:r.vname.trim(),rel:r.rel||RELS[0],count:+r.count||1,phone:r.phone.trim(),note:(r.note||'').trim(),status:'pending',limit:e.status==='limit'?e.minutes:0,at:Date.now()});
+  save();ui.done=code;ui.reg={cls:r.cls,squad:r.squad};render();window.scrollTo({top:0,behavior:'smooth'});
 }
 
 /* ============ TRA CỨU ============ */
 function lookView(){
   const k=ui.look;const rs=k.sid?S.regs.filter(r=>r.soldierId===k.sid).sort((a,b)=>b.date.localeCompare(a.date)):[];
   const nextD=upcomingOpen(2,today());
-  return `<div class="card" style="max-width:820px;margin:auto"><h2>${ic('search')} Tra cứu đăng ký</h2><div class="sub">Chọn chiến sĩ để xem các đăng ký thăm và tình trạng được thăm.</div>
-  ${soldierPicker(k,'look')}
+  return `<div class="card" style="max-width:820px;margin:auto"><h2>${ic('search')} Tra cứu đăng ký</h2><div class="sub">Tìm chiến sĩ để xem các đăng ký thăm và tình trạng được thăm.</div>
+  ${soldierPicker('look')}
   ${k.sid?nextD.map(d=>`<div style="margin-bottom:4px"><b>${vn(d)}</b>${eligBanner(elig(k.sid,d))}</div>`).join(''):''}
-  ${k.sid?(rs.length?`<div class="tw" style="margin-top:12px"><table><thead><tr><th>Mã</th><th>Ngày</th><th>Ca</th><th>Người thăm</th><th>Trạng thái</th><th></th></tr></thead><tbody>${rs.map(r=>{const s=S.settings.slots.find(x=>x.id===r.slotId);return `<tr><td><b>${esc(r.code)}</b></td><td>${vn(r.date)}</td><td>${esc(s?.label||'')} ${s?`${s.start}–${s.end}`:''}</td><td>${esc(r.vname)} (${esc(r.rel)}) +${r.count-1}</td><td>${statusBadge(r)}</td><td>${['pending','approved'].includes(r.status)&&r.date>=today()?`<button class="btn sm bad" data-act="regCancel" data-id="${r.id}">Hủy</button>`:''}</td></tr>`}).join('')}</tbody></table></div>`:'<div class="empty-s">Chưa có đăng ký nào.</div>'):''}
+  ${k.sid?(rs.length?`<div class="tw" style="margin-top:12px"><table><thead><tr><th>Mã</th><th>Ngày</th><th>Người thăm</th><th>Trạng thái</th><th></th></tr></thead><tbody>${rs.map(r=>`<tr><td><b>${esc(r.code)}</b></td><td>${vn(r.date)}<br><small>${visitSpan()}</small></td><td>${esc(r.vname)} (${esc(r.rel)}) +${r.count-1}</td><td>${statusBadge(r)}</td><td>${['pending','approved'].includes(r.status)&&r.date>=today()?`<button class="btn sm bad" data-act="regCancel" data-id="${r.id}">Hủy</button>`:''}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty-s">Chưa có đăng ký nào.</div>'):''}
   </div>`;
 }
 function statusBadge(r){
@@ -847,10 +1164,10 @@ function dashView(){
   const up=upcomingOpen(5,td);
   const active=S.decisions.filter(d=>!d.revoked&&d.to>=td&&d.type!=='ok').length;
   return `<div class="grid g4 stagger" style="margin-bottom:16px">
-   <div class="card stat"><div class="ic" style="background:linear-gradient(135deg,#1f9fe0,#1b2a6b)">${ic('users')}</div><div><b>${S.soldiers.length}</b><span>Quân số đại đội</span></div></div>
-   <div class="card stat"><div class="ic" style="background:linear-gradient(135deg,#f6c026,#d98a00)">${ic('clip')}</div><div><b>${pr}</b><span>Đăng ký chờ duyệt</span></div></div>
-   <div class="card stat"><div class="ic" style="background:linear-gradient(135deg,#e0453a,#8e1220)">${ic('alert')}</div><div><b>${pe.length}</b><span>Vi phạm chờ quyết định</span></div></div>
-   <div class="card stat"><div class="ic" style="background:linear-gradient(135deg,#14915a,#0b5f3a)">${ic('shield')}</div><div><b>${active}</b><span>Hạn chế/cấm đang hiệu lực</span></div></div></div>
+   <div class="card stat"><div class="ic" style="background:var(--olive)">${ic('users')}</div><div><b>${S.soldiers.length}</b><span>Quân số đại đội</span></div></div>
+   <div class="card stat"><div class="ic" style="background:var(--gold);color:#1c2416">${ic('clip')}</div><div><b>${pr}</b><span>Đăng ký chờ duyệt</span></div></div>
+   <div class="card stat"><div class="ic" style="background:var(--red)">${ic('alert')}</div><div><b>${pe.length}</b><span>Vi phạm chờ quyết định</span></div></div>
+   <div class="card stat"><div class="ic" style="background:var(--ok)">${ic('shield')}</div><div><b>${active}</b><span>Hạn chế/cấm đang hiệu lực</span></div></div></div>
   <div class="grid g2">
    <div class="card"><h2>${ic('alert')} Chiến sĩ vi phạm — chờ Đại đội trưởng quyết định</h2><div class="sub">Chọn không thăm, hạn chế thời gian hoặc cho thăm bình thường.</div>
     ${pe.length?pe.map(alertItem).join(''):`<div class="empty-s">${ic('check')}<br>Không có trường hợp nào đang chờ quyết định.</div>`}</div>
@@ -871,37 +1188,67 @@ function alertItem(e){
 function apprView(){
   const td=today();
   if(ui.df===null){const n=upcomingOpen(1,td)[0];ui.df=n||td}
-  let list=S.regs.filter(r=>(!ui.df||r.date===ui.df)&&(ui.stf==='all'||r.status===ui.stf));
-  const dates=[...new Set(S.regs.map(r=>r.date))].sort();
-  const nm=r=>soldier(r.soldierId)?.name||'(đã xóa)';
-  list.sort((a,b)=>a.slotId.localeCompare(b.slotId)||nm(a).localeCompare(nm(b)));
   return `<div class="card"><h2>${ic('clip')} Duyệt đăng ký thăm thân</h2><div class="sub">Hệ thống cảnh báo nếu chiến sĩ đang bị hạn chế hoặc cấm thăm.</div>
   <div class="toolbar"><input type="date" class="in" style="max-width:190px" value="${ui.df||''}" data-st="df" data-rr="1">
    <select class="in" style="max-width:190px" data-st="stf" data-rr="1">${opts([['all','Mọi trạng thái'],['pending','Chờ duyệt'],['approved','Đã duyệt'],['visited','Đã thăm'],['rejected','Từ chối'],['cancelled','Đã hủy']],ui.stf)}</select>
    <button class="btn sm ghost" data-act="dfAll">Tất cả ngày</button>
    <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm ok" data-act="approveAll">${ic('check')} Duyệt tất cả hợp lệ</button><button class="btn sm" data-act="printList">${ic('print')} In danh sách</button><button class="btn sm" data-act="csvRegs">${ic('dl')} Xuất CSV</button></div></div>
-  ${list.length?`<div class="tw"><table><thead><tr><th>Ngày / Ca</th><th>Chiến sĩ</th><th>Người thăm</th><th>SĐT</th><th>Điều kiện</th><th>Trạng thái</th><th></th></tr></thead><tbody>${list.map(r=>{const s=soldier(r.soldierId),sl=S.settings.slots.find(x=>x.id===r.slotId),e=elig(r.soldierId,r.date);
-   return `<tr><td><b>${WDs[dow(r.date)]} ${dm(r.date)}</b><br><small>${esc(sl?.label||'')} ${sl?sl.start+'–'+sl.end:''}</small></td><td><b>${esc(s?.name||'(đã xóa)')}</b><br><small>${esc(s?.cls||'')}</small></td><td>${esc(r.vname)}<br><small>${esc(r.rel)} · ${r.count} người</small>${r.note?`<br><small style="color:var(--mut)">${esc(r.note)}</small>`:''}</td><td><a class="tel" href="tel:${esc(String(r.phone).replace(/[^\d+]/g,''))}">${esc(r.phone)}</a></td>
+  ${filterBar('appr')}
+  <div id="fl-appr">${apprList()}</div></div>`;
+}
+/* Danh sách đăng ký đang hiển thị: theo ngày + trạng thái + ô tìm kiếm / lọc lớp, tiểu đội */
+function apprFiltered(){
+  const f=ui.flt.appr,tk=toks(f.q||'');
+  const nm=r=>soldier(r.soldierId)?.name||'(đã xóa)';
+  const list=S.regs.filter(r=>{
+    if(ui.df&&r.date!==ui.df)return false;
+    if(ui.stf!=='all'&&r.status!==ui.stf)return false;
+    const s=soldier(r.soldierId);
+    if(f.cls&&s?.cls!==f.cls)return false;
+    if(f.squad&&(s?.squad||'')!==f.squad)return false;
+    if(!tk.length)return true;
+    const h=norm(`${s?.name||''} ${s?.rank||''} ${s?.cls||''} ${s?.squad||''} ${r.vname} ${r.rel} ${r.phone} ${r.code}`);
+    return tk.every(t=>hit(h,t));
+  });
+  list.sort((a,b)=>a.date.localeCompare(b.date)||nm(a).localeCompare(nm(b),'vi'));
+  return list;
+}
+function apprList(){
+  const list=apprFiltered();
+  const scope=S.regs.filter(r=>(!ui.df||r.date===ui.df)&&(ui.stf==='all'||r.status===ui.stf)).length;
+  const head=countLine('appr',list.length,scope,'đăng ký');
+  if(!list.length)return head+(scope?noMatch(scope):`<div class="empty-s">${ic('clip')}<br>Không có đăng ký nào theo bộ lọc.</div>`);
+  return head+`<div class="tw"><table><thead><tr><th>Ngày</th><th>Chiến sĩ</th><th>Người thăm</th><th>SĐT</th><th>Điều kiện</th><th>Trạng thái</th><th></th></tr></thead><tbody>${list.map(r=>{const s=soldier(r.soldierId),e=elig(r.soldierId,r.date);
+   return `<tr><td><b>${WDs[dow(r.date)]} ${dm(r.date)}</b><br><small>${visitSpan()}</small></td><td><b>${esc(s?.name||'(đã xóa)')}</b><br><small>${esc(s?.cls||'')}${s?.squad?' · '+esc(s.squad):''}</small></td><td>${esc(r.vname)}<br><small>${esc(r.rel)} · ${r.count} người</small>${r.note?`<br><small style="color:var(--mut)">${esc(r.note)}</small>`:''}</td><td><a class="tel" href="tel:${esc(String(r.phone).replace(/[^\d+]/g,''))}">${esc(r.phone)}</a></td>
    <td>${e.status==='ban'?'<span class="badge b-bad">Bị cấm thăm</span>':e.status==='limit'?`<span class="badge b-warn">Hạn chế ${e.minutes}'</span>`:'<span class="badge b-ok">Bình thường</span>'}</td><td>${statusBadge(r)}</td>
-   <td><div class="acts">${r.status==='pending'?`<button class="btn sm ok" data-act="setReg" data-id="${r.id}" data-s="approved">Duyệt</button><button class="btn sm bad" data-act="setReg" data-id="${r.id}" data-s="rejected">Từ chối</button>`:''}${r.status==='approved'?`<button class="btn sm gold" data-act="setReg" data-id="${r.id}" data-s="visited">Đã thăm</button><button class="btn sm" data-act="setReg" data-id="${r.id}" data-s="cancelled">Hủy</button>`:''}</div></td></tr>`}).join('')}</tbody></table></div>`:`<div class="empty-s">${ic('clip')}<br>Không có đăng ký nào theo bộ lọc.</div>`}</div>`;
+   <td><div class="acts">${r.status==='pending'?`<button class="btn sm ok" data-act="setReg" data-id="${r.id}" data-s="approved">Duyệt</button><button class="btn sm bad" data-act="setReg" data-id="${r.id}" data-s="rejected">Từ chối</button>`:''}${r.status==='approved'?`<button class="btn sm gold" data-act="setReg" data-id="${r.id}" data-s="visited">Đã thăm</button><button class="btn sm" data-act="setReg" data-id="${r.id}" data-s="cancelled">Hủy</button>`:''}</div></td></tr>`}).join('')}</tbody></table></div>`;
 }
 function listHtml(list){
-  return `<h2>${esc(S.settings.parent.toUpperCase())}</h2><h2>${esc(S.settings.school.toUpperCase())} — ${esc(S.settings.unit.toUpperCase())}</h2><p>DANH SÁCH THĂM THÂN${ui.df?' — '+vn(ui.df):''}</p>
-  <table><thead><tr><th>TT</th><th>Ca</th><th>Chiến sĩ</th><th>Lớp</th><th>Người thăm</th><th>SL</th><th>Giới hạn</th><th>Ký tên</th></tr></thead><tbody>${list.map((r,i)=>{const s=soldier(r.soldierId),sl=S.settings.slots.find(x=>x.id===r.slotId);return `<tr><td>${i+1}</td><td>${esc(sl?.label||'')}</td><td>${esc(s?.name||'')}</td><td>${esc(s?.cls||'')}</td><td>${esc(r.vname)} (${esc(r.rel)})</td><td>${r.count}</td><td>${r.limit?r.limit+' phút':''}</td><td></td></tr>`}).join('')}</tbody></table>`;
+  return `<h2>${esc(S.settings.parent.toUpperCase())}</h2><h2>${esc(S.settings.school.toUpperCase())} — ${esc(S.settings.unit.toUpperCase())}</h2><p>DANH SÁCH THĂM THÂN${ui.df?' — '+vn(ui.df):''}</p><p>Giờ thăm: ${S.settings.visitFrom} – ${S.settings.visitTo} (1 ca duy nhất)</p>
+  <table><thead><tr><th>TT</th><th>Chiến sĩ</th><th>Lớp</th><th>Người thăm</th><th>SL</th><th>Giới hạn</th><th>Ký tên</th></tr></thead><tbody>${list.map((r,i)=>{const s=soldier(r.soldierId);return `<tr><td>${i+1}</td><td>${esc(s?.name||'')}</td><td>${esc(s?.cls||'')}</td><td>${esc(r.vname)} (${esc(r.rel)})</td><td>${r.count}</td><td>${r.limit?r.limit+' phút':''}</td><td></td></tr>`}).join('')}</tbody></table>
+  <p style="text-align:left;margin-top:12px"><i>Lưu ý: nếu thăm thân xong sớm, ${EARLY_RULE.charAt(0).toLowerCase()+EARLY_RULE.slice(1)}</i></p>`;
 }
 function curList(){return S.regs.filter(r=>(!ui.df||r.date===ui.df)&&(ui.stf==='all'?['approved','visited'].includes(r.status):r.status===ui.stf))}
 
 /* ============ QUÂN SỐ ============ */
 function rosterView(){
-  let list=S.soldiers.filter(s=>(!ui.cf||s.cls===ui.cf)&&(!ui.sf||s.name.toLowerCase().includes(ui.sf.toLowerCase())));
-  list.sort((a,b)=>a.cls.localeCompare(b.cls)||a.name.localeCompare(b.name,'vi'));
   return `<div class="grid g2" style="grid-template-columns:1fr">
   <div class="card"><h2>${ic('users')} Các lớp trong đại đội</h2><div class="sub">Thêm, đổi tên hoặc xóa lớp khi đơn vị có thay đổi.</div>
    <div class="chips">${S.classes.map(c=>`<span class="chip" style="display:flex;gap:8px;align-items:center;cursor:default">${esc(c)} <small>${S.soldiers.filter(s=>s.cls===c).length} CS</small><button class="btn sm ghost" style="padding:3px 6px" data-act="clsEdit" data-c="${esc(c)}">${ic('edit')}</button></span>`).join('')}<button class="chip" data-act="clsAdd">${ic('plus')} Thêm lớp</button></div></div>
-  <div class="card"><h2>${ic('users')} Danh sách hạ sĩ quan / binh sĩ (${S.soldiers.length})</h2><div class="sub">Có thể nhập từng người hoặc dán danh sách từ Excel.</div>
-   <div class="toolbar"><input class="in" placeholder="Tìm theo tên…" value="${esc(ui.sf)}" data-st="sf" data-rr="1" data-keep="1" inputmode="search" enterkeyhint="search" autocomplete="off"><select class="in" style="max-width:180px" data-st="cf" data-rr="1"><option value="">Tất cả các lớp</option>${opts(S.classes,ui.cf)}</select>
-   <div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri sm" data-act="sAdd">${ic('plus')} Thêm chiến sĩ</button><button class="btn sm" data-act="sImport">${ic('up')} Nhập danh sách</button><button class="btn sm" data-act="csvSold">${ic('dl')} Xuất CSV</button></div></div>
-   ${list.length?`<div class="tw"><table><thead><tr><th>#</th><th>Họ và tên</th><th>Cấp bậc</th><th>Lớp</th><th>Tiểu đội</th><th>SĐT thân nhân</th><th>Tình trạng thăm</th><th></th></tr></thead><tbody>${list.map((s,i)=>{const e=elig(s.id,nextWeekend());return `<tr><td>${i+1}</td><td><b>${esc(s.name)}</b></td><td>${esc(s.rank)}</td><td>${esc(s.cls)}</td><td>${esc(s.squad||'')}</td><td>${s.phone?`<a class="tel" href="tel:${esc(String(s.phone).replace(/[^\d+]/g,''))}">${esc(s.phone)}</a>`:''}</td><td>${e.status==='ban'?'<span class="badge b-bad">Cấm thăm</span>':e.status==='limit'?`<span class="badge b-warn">Hạn chế ${e.minutes}'</span>`:'<span class="badge b-ok">Bình thường</span>'}</td><td><div class="acts"><button class="btn sm" data-act="sEdit" data-id="${s.id}">${ic('edit')}</button><button class="btn sm bad" data-act="sDel" data-id="${s.id}">${ic('trash')}</button></div></td></tr>`}).join('')}</tbody></table></div>`:`<div class="empty-s">${ic('users')}<br>Chưa có chiến sĩ nào.</div>`}</div></div>`;
+  <div class="card"><h2>${ic('users')} Danh sách hạ sĩ quan / binh sĩ (${S.soldiers.length})</h2><div class="sub">Nhập từng người hoặc dán danh sách từ Excel. Tìm kiếm không cần gõ dấu.</div>
+   <div class="toolbar"><div style="margin-left:auto;display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri sm" data-act="sAdd">${ic('plus')} Thêm chiến sĩ</button><button class="btn sm" data-act="sImport">${ic('up')} Nhập danh sách</button><button class="btn sm" data-act="csvSold">${ic('dl')} Xuất CSV</button></div></div>
+   ${filterBar('roster')}
+   <div id="fl-roster">${rosterList()}</div></div></div>`;
+}
+function rosterList(){
+  const f=ui.flt.roster,nw=nextWeekend();
+  let rows=filterSoldiers(S.soldiers,f).map(s=>({s,e:elig(s.id,nw)}));
+  if(f.st)rows=rows.filter(x=>x.e.status===f.st);
+  const cmp={name:(a,b)=>natCmp(given(a.name),given(b.name))||natCmp(a.name,b.name),squad:(a,b)=>natCmp(a.squad,b.squad)||cmpClass(a,b)}[f.sort]||cmpClass;
+  rows.sort((x,y)=>cmp(x.s,y.s));
+  const head=countLine('roster',rows.length,S.soldiers.length,'chiến sĩ');
+  if(!rows.length)return head+noMatch(S.soldiers.length,'Chưa có chiến sĩ nào.');
+  return head+`<div class="tw"><table><thead><tr><th>#</th><th>Họ và tên</th><th>Cấp bậc</th><th>Lớp</th><th>Tiểu đội</th><th>SĐT thân nhân</th><th>Tình trạng thăm</th><th></th></tr></thead><tbody>${rows.map(({s,e},i)=>`<tr><td>${i+1}</td><td><b>${esc(s.name)}</b></td><td>${esc(s.rank)}</td><td>${esc(s.cls)}</td><td>${esc(s.squad||'')}</td><td>${s.phone?`<a class="tel" href="tel:${esc(String(s.phone).replace(/[^\d+]/g,''))}">${esc(s.phone)}</a>`:''}</td><td>${e.status==='ban'?'<span class="badge b-bad">Cấm thăm</span>':e.status==='limit'?`<span class="badge b-warn">Hạn chế ${e.minutes}'</span>`:'<span class="badge b-ok">Bình thường</span>'}</td><td><div class="acts"><button class="btn sm" data-act="sEdit" data-id="${s.id}">${ic('edit')}</button><button class="btn sm bad" data-act="sDel" data-id="${s.id}">${ic('trash')}</button></div></td></tr>`).join('')}</tbody></table></div>`;
 }
 const nextWeekend=()=>{const t=today();const d=dow(t);return d===6||d===0?t:addDays(t,6-d)};
 function soldierModal(id){
@@ -937,19 +1284,31 @@ function impGo(){
 /* ============ ĐÁNH GIÁ TUẦN ============ */
 function evalOf(sid,wk){return S.evals.find(e=>e.soldierId===sid&&e.weekStart===wk)}
 function decisionOfEval(e){return e&&S.decisions.filter(d=>d.evalId===e.id&&!d.revoked).slice(-1)[0]}
-function evalView(){
-  const wk=ui.week;
-  const list=S.soldiers.filter(s=>!ui.cf||s.cls===ui.cf).sort((a,b)=>a.cls.localeCompare(b.cls)||a.name.localeCompare(b.name,'vi'));
-  const active=S.decisions.filter(d=>!d.revoked&&d.to>=today()&&d.type!=='ok').sort((a,b)=>a.from.localeCompare(b.from));
-  return `<div class="card" style="margin-bottom:16px"><h2>${ic('shield')} Đánh giá hạ sĩ quan / binh sĩ theo tuần</h2><div class="sub">Có vi phạm → hệ thống báo để Đại đội trưởng quyết định hạn chế hoặc không cho thăm.</div>
-   <div class="calhead"><button class="iconbtn" data-act="wk" data-n="-7">${ic('l')}</button><h2 style="font-size:17px;min-width:230px;margin:0">Tuần ${dmy(wk)} – ${dmy(addDays(wk,6))}</h2><button class="iconbtn" data-act="wk" data-n="7">${ic('r')}</button><button class="btn sm ghost" data-act="wkNow">Tuần này</button>
-   <select class="in" style="max-width:170px;margin-left:auto" data-st="cf" data-rr="1"><option value="">Tất cả các lớp</option>${opts(S.classes,ui.cf)}</select><button class="btn sm ok" data-act="evalAllGood">${ic('check')} Chưa đánh giá → Đạt</button><button class="btn sm" data-act="decManual">${ic('plus')} Quyết định thủ công</button></div>
-   ${list.length?`<div class="tw"><table><thead><tr><th>Chiến sĩ</th><th>Lớp</th><th>Học tập</th><th>Công tác</th><th>Vi phạm</th><th>Quyết định</th><th></th></tr></thead><tbody>${list.map(s=>{const e=evalOf(s.id,wk),d=decisionOfEval(e);
+function evalRows(){
+  const wk=ui.week,f=ui.flt.eval;
+  let rows=filterSoldiers(S.soldiers,f).map(s=>{const e=evalOf(s.id,wk);return {s,e,d:decisionOfEval(e),k:!e?'none':!e.violations.length?'good':!e.decided?'wait':'done'}});
+  if(f.st)rows=rows.filter(r=>f.st==='viol'?(r.k==='wait'||r.k==='done'):r.k===f.st);
+  rows.sort((a,b)=>cmpClass(a.s,b.s));
+  return rows;
+}
+function evalList(){
+  const rows=evalRows(),head=countLine('eval',rows.length,S.soldiers.length,'chiến sĩ');
+  if(!rows.length)return head+noMatch(S.soldiers.length,'Chưa có chiến sĩ.');
+  return head+`<div class="tw"><table><thead><tr><th>Chiến sĩ</th><th>Lớp</th><th>Học tập</th><th>Công tác</th><th>Vi phạm</th><th>Quyết định</th><th></th></tr></thead><tbody>${rows.map(({s,e,d})=>{
     let dec='<span class="badge b-gray">—</span>';
     if(e&&e.violations.length){dec=!e.decided?'<span class="badge b-warn">Chờ quyết định</span>':d?(d.type==='ban'?`<span class="badge b-bad">Không thăm ${dm(d.from)}–${dm(d.to)}</span>`:d.type==='limit'?`<span class="badge b-warn">Hạn chế ${d.minutes}'</span>`:'<span class="badge b-ok">Cho thăm</span>'):'<span class="badge b-ok">Đã xử lý</span>'}
     else if(e)dec='<span class="badge b-ok">Đạt</span>';
-    return `<tr><td><b>${esc(s.name)}</b></td><td>${esc(s.cls)}</td><td>${e?esc(e.study):'—'}</td><td>${e?esc(e.work):'—'}</td><td>${e&&e.violations.length?`<span class="badge b-bad">${e.violations.length} lỗi</span>`:e?'<span class="badge b-ok">Không</span>':'—'}</td><td>${dec}</td>
-    <td><div class="acts"><button class="btn sm" data-act="evalOpen" data-id="${s.id}">${e?'Sửa':'Đánh giá'}</button>${e&&e.violations.length?`<button class="btn sm pri" data-act="decide" data-id="${e.id}">Quyết định</button>`:''}</div></td></tr>`}).join('')}</tbody></table></div>`:'<div class="empty-s">Chưa có chiến sĩ.</div>'}</div>
+    return `<tr><td><b>${esc(s.name)}</b>${s.squad?`<br><small>${esc(s.squad)}</small>`:''}</td><td>${esc(s.cls)}</td><td>${e?esc(e.study):'—'}</td><td>${e?esc(e.work):'—'}</td><td>${e&&e.violations.length?`<span class="badge b-bad">${e.violations.length} lỗi</span>`:e?'<span class="badge b-ok">Không</span>':'—'}</td><td>${dec}</td>
+    <td><div class="acts"><button class="btn sm" data-act="evalOpen" data-id="${s.id}">${e?'Sửa':'Đánh giá'}</button>${e&&e.violations.length?`<button class="btn sm pri" data-act="decide" data-id="${e.id}">Quyết định</button>`:''}</div></td></tr>`}).join('')}</tbody></table></div>`;
+}
+function evalView(){
+  const wk=ui.week;
+  const active=S.decisions.filter(d=>!d.revoked&&d.to>=today()&&d.type!=='ok').sort((a,b)=>a.from.localeCompare(b.from));
+  return `<div class="card" style="margin-bottom:16px"><h2>${ic('shield')} Đánh giá hạ sĩ quan / binh sĩ theo tuần</h2><div class="sub">Có vi phạm → hệ thống báo để Đại đội trưởng quyết định hạn chế hoặc không cho thăm.</div>
+   <div class="calhead"><button class="iconbtn" data-act="wk" data-n="-7">${ic('l')}</button><h2 class="wkt">Tuần ${dmy(wk)} – ${dmy(addDays(wk,6))}</h2><button class="iconbtn" data-act="wk" data-n="7">${ic('r')}</button><button class="btn sm ghost" data-act="wkNow">Tuần này</button>
+   <button class="btn sm ok" style="margin-left:auto" data-act="evalAllGood">${ic('check')} Chưa đánh giá → Đạt</button><button class="btn sm" data-act="decManual">${ic('plus')} Quyết định thủ công</button></div>
+   ${filterBar('eval')}
+   <div id="fl-eval">${evalList()}</div></div>
    <div class="card"><h2>${ic('lock')} Hạn chế / cấm thăm đang hiệu lực</h2><div class="sub">Bấm “Gỡ” để thu hồi quyết định.</div>
    ${active.length?`<div class="tw"><table><thead><tr><th>Chiến sĩ</th><th>Hình thức</th><th>Hiệu lực</th><th>Lý do</th><th></th></tr></thead><tbody>${active.map(d=>`<tr><td><b>${esc(soldier(d.soldierId)?.name||'?')}</b></td><td>${d.type==='ban'?'<span class="badge b-bad">Không cho thăm</span>':`<span class="badge b-warn">Tối đa ${d.minutes} phút</span>`}</td><td>${dmy(d.from)} → ${dmy(d.to)}</td><td>${esc(d.reason||'')}</td><td><button class="btn sm" data-act="decRevoke" data-id="${d.id}">Gỡ</button></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty-s">Không có hạn chế nào.</div>'}</div>`;
 }
@@ -977,12 +1336,13 @@ function defaultRange(wk){
 }
 function decisionModal(evalId){
   const e=evalId?S.evals.find(x=>x.id===evalId):null;
+  if(!e)ui.dec={sid:'',q:'',cls:'',squad:''};
   const s=e?soldier(e.soldierId):null;
   const sg=e?suggestFor(e.violations):null;
   const [f,t]=defaultRange(e?e.weekStart:ui.week);
   const type=sg?.type||'limit',min=sg?.minutes||30;
   modal(`<h3>${ic('shield')} Quyết định thăm thân</h3>
-  ${s?`<div class="kv"><span>Chiến sĩ</span><b>${esc(s.name)} · ${esc(s.cls)}</b></div><div class="kv"><span>Vi phạm</span><b style="text-align:right">${vnames(e.violations).map(esc).join('; ')}</b></div>`:`<div class="fld"><label class="f">Chiến sĩ</label><select class="in" id="dS">${S.soldiers.map(x=>`<option value="${x.id}">${esc(x.name)} (${esc(x.cls)})</option>`).join('')}</select></div>`}
+  ${s?`<div class="kv"><span>Chiến sĩ</span><b>${esc(s.name)} · ${esc(s.cls)}</b></div><div class="kv"><span>Vi phạm</span><b style="text-align:right">${vnames(e.violations).map(esc).join('; ')}</b></div>`:soldierPicker('dec')}
   ${sg?`<div class="banner info">${ic('info')}<div>Mức vi phạm cao nhất: <b>${LVL[sg.level]}</b>. Gợi ý: <b>${sg.type==='ban'?'không cho thăm':sg.type==='limit'?`hạn chế ${sg.minutes} phút`:'thăm bình thường'}</b> (chỉ là gợi ý — Đại đội trưởng quyết định).</div></div>`:''}
   <label class="f" style="margin-top:12px">Hình thức</label>
   <div class="chips" style="margin-bottom:12px"><label class="chip"><input type="radio" name="dT" value="ok" ${type==='ok'?'checked':''}> Cho thăm bình thường</label><label class="chip"><input type="radio" name="dT" value="limit" ${type==='limit'?'checked':''}> Hạn chế giờ thăm</label><label class="chip"><input type="radio" name="dT" value="ban" ${type==='ban'?'checked':''}> Không cho thăm</label></div>
@@ -995,7 +1355,7 @@ function decSave(evalId){
   const type=document.querySelector('input[name=dT]:checked')?.value||'ok';
   const f=val('dF'),t=val('dT2');if(!f||!t||t<f)return toast('Khoảng ngày chưa hợp lệ','err');
   const e=evalId?S.evals.find(x=>x.id===evalId):null;
-  const sid=e?e.soldierId:val('dS');if(!sid)return toast('Chọn chiến sĩ','err');
+  const sid=e?e.soldierId:ui.dec.sid;if(!sid)return toast('Chọn chiến sĩ','err');
   const mins=+val('dM')||30;
   if(e)S.decisions.forEach(d=>{if(d.evalId===e.id)d.revoked=true});
   S.decisions.push({id:uid(),soldierId:sid,evalId:e?e.id:null,type,minutes:mins,from:f,to:t,reason:val('dR').trim(),at:Date.now()});
@@ -1016,14 +1376,16 @@ function setView(){
    <div class="row"><div class="fld"><label class="f">Số người thăm tối đa</label><input class="in" type="number" min="1" max="10" id="sMax" value="${st.maxVisitors}"></div><div class="fld"><label class="f">Đăng ký trước (ngày)</label><input class="in" type="number" min="0" max="14" id="sMin" value="${st.minDaysAhead}"></div></div>
    <div class="banner info">${ic('cal')}<div><b>Chu kỳ lịch hiện tại: ${cycleLabel()}</b><br>Chọn tháng/năm bắt đầu để dùng lâu dài cho các khóa sau.</div></div>
    <div class="row"><div class="fld"><label class="f">Bắt đầu từ tháng</label>${monthSel('sCm',st.rangeStart.split('-')[1])}</div><div class="fld"><label class="f">Năm</label><select class="in" id="sCy">${yearOpts(st.rangeStart.split('-')[0])}</select></div></div>
-   <div class="row"><div class="fld"><label class="f">Số tháng của chu kỳ</label><input class="in" type="number" min="1" max="36" id="sRm" value="${st.rangeMonths}"></div><div class="fld"><label class="f">Giờ thăm (từ – đến)</label><div style="display:flex;gap:6px"><input class="in" type="time" id="sVf" value="${st.visitFrom}"><input class="in" type="time" id="sVt" value="${st.visitTo}"></div></div></div>
+   <div class="fld"><label class="f">Số tháng của chu kỳ</label><input class="in" type="number" min="1" max="36" id="sRm" value="${st.rangeMonths}"></div>
    <div class="row"><div class="fld"><label class="f">PIN Đại đội trưởng</label><input class="in" id="sPin" value="${esc(st.pin)}" maxlength="12"></div><div class="fld"><label class="f">PIN truy cập chung</label><input class="in" id="sUPin" value="${esc(st.userPin)}" maxlength="12"></div></div>
    <button class="btn ghost" data-act="cycleNew" style="margin-bottom:12px;width:100%">${ic('cal')} Bắt đầu chu kỳ mới…</button>
    <button class="btn pri" data-act="setSave">${ic('check')} Lưu cài đặt</button></div>
 
-  <div style="display:grid;gap:16px;align-content:start"><div class="card"><h2>${ic('clock')} Các ca thăm mặc định</h2><div class="sub">Áp dụng cho mọi ngày thăm, nằm trong khung giờ ${S.settings.visitFrom}–${S.settings.visitTo}.</div>
-   ${st.slots.map((s,i)=>`<div class="row" style="grid-template-columns:1.2fr 1fr 1fr .7fr auto;align-items:end;margin-bottom:8px"><div><label class="f">Tên ca</label><input class="in sl-l" value="${esc(s.label)}"></div><div><label class="f">Từ</label><input class="in sl-s" type="time" value="${s.start}"></div><div><label class="f">Đến</label><input class="in sl-e" type="time" value="${s.end}"></div><div><label class="f">Số lượt</label><input class="in sl-c" type="number" min="1" value="${s.cap}"></div><button class="btn sm bad" data-act="slDel" data-i="${i}">${ic('trash')}</button></div>`).join('')}
-   <div style="display:flex;gap:8px;margin-top:8px"><button class="btn sm" data-act="slAdd">${ic('plus')} Thêm ca</button><button class="btn sm pri" data-act="slSave">Lưu các ca</button></div></div>
+  <div style="display:grid;gap:16px;align-content:start"><div class="card"><h2>${ic('clock')} Ca thăm duy nhất</h2><div class="sub">Mỗi ngày thăm chỉ có một ca, không chia ca sáng / chiều.</div>
+   <div class="row"><div class="fld"><label class="f">Từ</label><input class="in" type="time" id="sVf" value="${st.visitFrom}"></div><div class="fld"><label class="f">Đến</label><input class="in" type="time" id="sVt" value="${st.visitTo}"></div></div>
+   <div class="fld"><label class="f">Số lượt thăm tối đa mỗi ngày</label><input class="in" type="number" min="1" id="sCap" value="${st.cap}"></div>
+   ${earlyBanner()}
+   <button class="btn sm pri" data-act="visitSave">Lưu ca thăm</button></div>
 
   <div class="card"><h2>${ic('alert')} Danh mục vi phạm & mức gợi ý</h2><div class="sub">Mức xử lý chỉ là gợi ý, Đại đội trưởng luôn quyết định cuối cùng.</div>
    ${[1,2,3].map(l=>`<div class="row" style="grid-template-columns:90px 1fr 1fr;margin-bottom:8px;align-items:center"><b><i class="lvl l${l}"></i>${LVL[l]}</b><select class="in" id="sg${l}t">${opts([['ok','Thăm bình thường'],['limit','Hạn chế giờ'],['ban','Không cho thăm']],st.suggest[l].type)}</select><input class="in" type="number" id="sg${l}m" min="5" step="5" value="${st.suggest[l].minutes||30}" title="Phút tối đa"></div>`).join('')}
@@ -1037,22 +1399,17 @@ function setView(){
 function setSave(){
   const st=S.settings;
   const rs=`${val('sCy')}-${pad(+val('sCm'))}`;
-  const vf=val('sVf')||'09:00',vt=val('sVt')||'15:00';
-  if(vf>=vt)return toast('Khung giờ thăm không hợp lệ','err');
   const pin=val('sPin').trim(),upin=val('sUPin').trim();
   if(pin.length<4||upin.length<4)return toast('Mã PIN tối thiểu 4 ký tự','err');
   if(pin===upin)return toast('Hai mã PIN phải khác nhau','err');
-  Object.assign(st,{parent:val('sPar').trim(),school:val('sSch').trim(),unit:val('sUn').trim(),maxVisitors:Math.max(1,+val('sMax')||3),minDaysAhead:Math.max(0,+val('sMin')||0),rangeStart:rs,rangeMonths:Math.min(36,Math.max(1,+val('sRm')||24)),pin,userPin:upin,visitFrom:vf,visitTo:vt});
-  st.slots.forEach(s=>{if(s.start<vf)s.start=vf;if(s.end>vt)s.end=vt;if(s.end<=s.start){s.start=vf;s.end=vt}});
+  Object.assign(st,{parent:val('sPar').trim(),school:val('sSch').trim(),unit:val('sUn').trim(),maxVisitors:Math.max(1,+val('sMax')||3),minDaysAhead:Math.max(0,+val('sMin')||0),rangeStart:rs,rangeMonths:Math.min(36,Math.max(1,+val('sRm')||24)),pin,userPin:upin});
   ui.month=monthKey(today());if(ui.month<rs)ui.month=rs;const le=monthKey(rangeEnd());if(ui.month>le)ui.month=le;
   save();render();toast('Đã lưu cài đặt');
 }
-function slSave(){
-  const L=[...document.querySelectorAll('.sl-l')],Sx=[...document.querySelectorAll('.sl-s')],E=[...document.querySelectorAll('.sl-e')],C=[...document.querySelectorAll('.sl-c')];
-  const vf=S.settings.visitFrom,vt=S.settings.visitTo;
-  const arr=S.settings.slots.map((s,i)=>({id:s.id,label:L[i].value.trim()||'Ca '+(i+1),start:Sx[i].value||s.start,end:E[i].value||s.end,cap:Math.max(1,+C[i].value||1)}));
-  for(const s of arr){if(s.start>=s.end)return toast(`“${s.label}”: giờ bắt đầu phải trước giờ kết thúc`,'err');if(s.start<vf||s.end>vt)return toast(`“${s.label}” phải nằm trong giờ thăm ${vf}–${vt}`,'err')}
-  S.settings.slots=arr;save();render();toast('Đã lưu các ca thăm');
+function visitSave(){
+  const vf=val('sVf')||'09:00',vt=val('sVt')||'15:00',cap=Math.max(1,+val('sCap')||1);
+  if(vf>=vt)return toast('Giờ bắt đầu phải trước giờ kết thúc','err');
+  Object.assign(S.settings,{visitFrom:vf,visitTo:vt,cap});save();render();toast('Đã lưu ca thăm');
 }
 
 /* ============ xuất / nhập ============ */
@@ -1070,6 +1427,10 @@ const csv=rows=>rows.map(r=>r.map(c=>`"${String(c??'').replace(/"/g,'""')}"`).jo
 /* ============ sự kiện ============ */
 const A={
  close:()=>closeModal(),
+ sxClear:(d,t)=>{const i=t.parentElement.querySelector('input');i.value='';i.dispatchEvent(new Event('input',{bubbles:true}));i.focus()},
+ fClear:d=>{const k=d.k,sort=ui.flt[k].sort;ui.flt[k]=Object.assign({},FDEF[k]);if(sort!==undefined)ui.flt[k].sort=sort;const fb=document.getElementById('fb-'+k);if(fb)fb.outerHTML=filterBar(k);refreshList(k)},
+ pkPick:d=>{const st=PK[d.k]();st.sid=d.id;st.q='';if(d.k==='dec'){const w=document.getElementById('pk-dec');if(w)w.outerHTML=soldierPicker('dec')}else rerenderKeep()},
+ pkClear:d=>{PK[d.k]().sid='';if(d.k==='dec'){const w=document.getElementById('pk-dec');if(w)w.outerHTML=soldierPicker('dec')}else rerenderKeep();setTimeout(()=>{const i=document.querySelector('#pk-'+d.k+' input');if(i)i.focus()},40)},
  go:d=>{closeModal();if(ui.view===d.v&&!ui.done){window.scrollTo({top:0,behavior:'smooth'});return}ui.view=d.v;ui.done=false;pushView();render();window.scrollTo({top:0,behavior:'instant'})},
  more:()=>{const it=(v,l,i)=>`<button class="mitem ${ui.view===v?'on':''}" data-act="go" data-v="${v}">${ic(i)}<span>${l}</span></button>`;
    modal(`<h3>${ic('menu')} Menu</h3><div class="mgrid">${it('reg','Đăng ký thăm','userplus')}${it('look','Tra cứu','search')}${it('roster','Quân số','users')}${it('set','Cài đặt','sliders')}${canInstall()?`<button class="mitem" data-act="install">${ic('addhome')}<span>Cài ứng dụng</span></button>`:''}<button class="mitem" data-act="logout">${ic('lock')}<span>Khóa ứng dụng</span></button></div><div class="foot"><button class="btn" data-act="close">Đóng</button></div>`)},
@@ -1088,15 +1449,14 @@ const A={
  dayReset:d=>{delete S.days[d.d];save();closeModal();rerenderKeep();toast('Đã khôi phục mặc định')},
  dayReg:d=>{ui.reg.date=d.d;closeModal();ui.view='reg';ui.done=false;pushView();render();window.scrollTo({top:0,behavior:'instant'})},
  pickDate:d=>{ui.reg.date=d.d;ui.reg.slot='';rerenderKeep()},
- pickSlot:d=>{ui.reg.slot=d.s;rerenderKeep()},
  regSubmit,
  regNew:()=>{ui.done=false;render()},
  regCancel:d=>ask('Hủy đăng ký này?',()=>{const r=S.regs.find(x=>x.id===d.id);r.status='cancelled';save();render();toast('Đã hủy đăng ký')},'Hủy đăng ký'),
  setReg:d=>{const r=S.regs.find(x=>x.id===d.id);if(d.s==='approved'&&elig(r.soldierId,r.date).status==='ban')return ask('Chiến sĩ này đang bị <b>cấm thăm</b>. Vẫn duyệt?',()=>{r.status='approved';save();render()},'Vẫn duyệt');r.status=d.s;save();render()},
- approveAll:()=>{let n=0,sk=0;curListAll().forEach(r=>{if(r.status==='pending'){if(elig(r.soldierId,r.date).status==='ban')sk++;else{r.status='approved';n++}}});save();render();toast(`Đã duyệt ${n} đăng ký${sk?`, bỏ qua ${sk} trường hợp bị cấm`:''}`)},
+ approveAll:()=>{let n=0,sk=0;apprFiltered().forEach(r=>{if(r.status==='pending'){if(elig(r.soldierId,r.date).status==='ban')sk++;else{r.status='approved';n++}}});save();render();toast(`Đã duyệt ${n} đăng ký${sk?`, bỏ qua ${sk} trường hợp bị cấm`:''}`)},
  dfAll:()=>{ui.df='';render()},
  printList:()=>{const l=curList();if(!l.length)return toast('Chưa có đăng ký đã duyệt để in','err');$('#printSheet').innerHTML=listHtml(l);window.print()},
- csvRegs:()=>{const l=S.regs.filter(r=>!ui.df||r.date===ui.df);download('dang-ky-tham-than.csv',csv([['Mã','Ngày','Ca','Chiến sĩ','Lớp','Người thăm','Quan hệ','Số người','SĐT','Trạng thái','Giới hạn (phút)'],...l.map(r=>{const s=soldier(r.soldierId),sl=S.settings.slots.find(x=>x.id===r.slotId);return [r.code,r.date,sl?.label,s?.name,s?.cls,r.vname,r.rel,r.count,r.phone,r.status,r.limit||'']})]))},
+ csvRegs:()=>{const l=S.regs.filter(r=>!ui.df||r.date===ui.df);download('dang-ky-tham-than.csv',csv([['Mã','Ngày','Chiến sĩ','Lớp','Người thăm','Quan hệ','Số người','SĐT','Trạng thái','Giới hạn (phút)'],...l.map(r=>{const s=soldier(r.soldierId);return [r.code,r.date,s?.name,s?.cls,r.vname,r.rel,r.count,r.phone,r.status,r.limit||'']})]))},
  clsAdd:()=>{modal(`<h3>Thêm lớp</h3><div class="fld"><label class="f">Tên lớp</label><input class="in" id="cN"></div><div class="foot"><button class="btn" data-act="close">Hủy</button><button class="btn pri" data-act="clsSave">Thêm</button></div>`)},
  clsSave:()=>{const n=val('cN').trim();if(!n)return;if(S.classes.includes(n))return toast('Lớp đã tồn tại','err');S.classes.push(n);save();closeModal();render()},
  clsEdit:d=>{modal(`<h3>Sửa lớp “${esc(d.c)}”</h3><div class="fld"><label class="f">Tên mới</label><input class="in" id="cN" value="${esc(d.c)}"></div><div class="foot"><button class="btn bad" data-act="clsDel" data-c="${esc(d.c)}">Xóa lớp</button><button class="btn" data-act="close">Hủy</button><button class="btn pri" data-act="clsRen" data-c="${esc(d.c)}">Lưu</button></div>`)},
@@ -1109,7 +1469,7 @@ const A={
  csvSold:()=>download('quan-so.csv',csv([['Họ tên','Cấp bậc','Lớp','Tiểu đội','SĐT'],...S.soldiers.map(s=>[s.name,s.rank,s.cls,s.squad,s.phone])])),
  wk:d=>{ui.week=addDays(ui.week,+d.n);render()},wkNow:()=>{ui.week=mondayOf(today());render()},
  evalOpen:d=>evalModal(d.id),evalSave:d=>evalSave(d.id),
- evalAllGood:()=>{let n=0;S.soldiers.forEach(s=>{if(!evalOf(s.id,ui.week)){S.evals.push({id:uid(),weekStart:ui.week,soldierId:s.id,study:'Khá',work:'Khá',violations:[],note:'',decided:true});n++}});save();render();toast(`Đã đánh giá Đạt cho ${n} chiến sĩ`)},
+ evalAllGood:()=>{let n=0;evalRows().forEach(({s,e})=>{if(!e){S.evals.push({id:uid(),weekStart:ui.week,soldierId:s.id,study:'Khá',work:'Khá',violations:[],note:'',decided:true});n++}});save();render();toast(`Đã đánh giá Đạt cho ${n} chiến sĩ${fActive(ui.flt.eval)?' (trong danh sách đang lọc)':''}`)},
  decide:d=>decisionModal(d.id),decManual:()=>decisionModal(null),decSave:d=>decSave(d.id||null),
  decRevoke:d=>{const x=S.decisions.find(y=>y.id===d.id);x.revoked=true;save();render();toast('Đã gỡ quyết định')},
  gateGo:()=>{
@@ -1133,27 +1493,34 @@ const A={
   A.bkOut();S.regs=[];S.evals=[];S.decisions=[];S.days={};if(!keep)S.soldiers=[];
   S.settings.rangeStart=rs;ui.month=rs;ui.df=null;save();closeModal();render();toast('Đã bắt đầu chu kỳ '+cycleLabel());
  },
- setSave,slSave,
- slAdd:()=>{S.settings.slots.push({id:'s'+uid(),label:'Ca mới',start:S.settings.visitFrom,end:S.settings.visitTo,cap:10});save();render()},
- slDel:d=>{if(S.settings.slots.length<2)return toast('Cần ít nhất một ca','err');S.settings.slots.splice(+d.i,1);save();render()},
+ setSave,visitSave,
  sgSave:()=>{[1,2,3].forEach(l=>S.settings.suggest[l]={type:val('sg'+l+'t'),minutes:+val('sg'+l+'m')||30});save();toast('Đã lưu mức gợi ý')},
  vAdd:()=>{const n=val('vN').trim();if(!n)return;S.vtypes.push({id:'v'+uid(),name:n,level:+val('vL')});save();render()},
  vDel:d=>{S.vtypes=S.vtypes.filter(v=>v.id!==d.id);save();render()},
  bkOut:()=>{saveFile(`sao-luu-tham-than-${today()}.json`,new Blob([JSON.stringify(S)],{type:'application/json'}))},
  clrDemo:()=>ask('Xóa toàn bộ chiến sĩ, đăng ký, đánh giá và quyết định? Cài đặt và lịch được giữ lại.',()=>{S.soldiers=[];S.regs=[];S.evals=[];S.decisions=[];save();render();toast('Đã xóa dữ liệu')},'Xóa hết')
 };
-function curListAll(){return S.regs.filter(r=>(!ui.df||r.date===ui.df))}
 
 document.addEventListener('click',e=>{const t=e.target.closest('[data-act]');if(!t)return;const f=A[t.dataset.act];if(f){e.preventDefault();f(t.dataset,t)}});
 function setPath(path,v){const [k,f]=path.split('.');if(f)ui[k][f]=v;else ui[k]=v}
-document.addEventListener('input',e=>{const t=e.target;if(!t.dataset.st)return;setPath(t.dataset.st,t.value);if(t.dataset.keep){const pos=t.selectionStart;render();const n=document.querySelector('[data-keep]');if(n){n.focus();n.setSelectionRange(pos,pos)}}});
+document.addEventListener('input',e=>{const t=e.target;if(t.dataset.flt&&t.tagName==='INPUT')return setFlt(t);if(t.dataset.pk&&t.tagName==='INPUT')return setPk(t);if(!t.dataset.st)return;setPath(t.dataset.st,t.value)});
 document.addEventListener('change',e=>{
   const t=e.target;
-  if(t.dataset.st){setPath(t.dataset.st,t.value);if(t.dataset.st==='reg.cls'||t.dataset.st==='look.cls'){ui[t.dataset.st.split('.')[0]].sid=''}if(t.dataset.rr&&!t.dataset.keep)rerenderKeep()}
+  if(t.dataset.flt&&t.tagName==='SELECT')return setFlt(t);
+  if(t.dataset.pk&&t.tagName==='SELECT')return setPk(t);
+  if(t.dataset.st){setPath(t.dataset.st,t.value);if(t.dataset.rr)rerenderKeep()}
   if(t.dataset.actChange==='monJump'){ui.month=t.value;rerenderKeep()}
-  if(t.id==='bkIn'&&t.files[0]){const fr=new FileReader();fr.onload=()=>{try{const d=JSON.parse(fr.result);if(!d.settings||!d.soldiers)throw 0;S=d;S.settings.userPin=S.settings.userPin||'0000';S.settings.visitFrom=S.settings.visitFrom||'09:00';S.settings.visitTo=S.settings.visitTo||'15:00';save();render();toast('Đã khôi phục dữ liệu')}catch(x){toast('File sao lưu không hợp lệ','err')}};fr.readAsText(t.files[0])}
+  if(t.id==='bkIn'&&t.files[0]){const fr=new FileReader();fr.onload=()=>{try{const d=JSON.parse(fr.result);if(!d.settings||!d.soldiers)throw 0;S=migrate(d);save();render();toast('Đã khôi phục dữ liệu')}catch(x){toast('File sao lưu không hợp lệ','err')}};fr.readAsText(t.files[0])}
 });
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeModal();
+  const t=e.target;
+  /* Enter trong ô tìm chiến sĩ → chọn kết quả đầu tiên */
+  if(e.key==='Enter'&&t.dataset&&t.dataset.pk&&t.tagName==='INPUT'){
+    const k=t.dataset.pk.split('.')[0],st=PK[k]();
+    if(toks(st.q||'').length){const l=pickResults(st);if(l.length){e.preventDefault();t.blur();A.pkPick({k,id:l[0].id})}}
+  }
+});
 
 /* ===== Trải nghiệm cảm ứng ===== */
 // Bàn phím ảo: ẩn thanh dưới, cuộn ô đang nhập vào giữa màn hình
